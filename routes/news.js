@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-    const news = await News.findOne({ id: req.params.id });
+    const news = await News.findOne({ _id: req.params.id });
     res.send(news);
 });
 

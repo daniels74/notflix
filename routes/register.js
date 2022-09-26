@@ -42,7 +42,7 @@ router.get("/checkExistByEmail/:userEmail", async (req, res) => {
 
 router.get("/checkExistByUsername/:username", async (req, res) => {
   const user = await UserProfile.findOne({
-    userName: req.params.username.toLowerCase(),
+    userName: req.params.username,
   });
 
   return user ? res.send(true) : res.send(false);

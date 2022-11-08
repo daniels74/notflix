@@ -1,19 +1,19 @@
-const express = require('express');
-const cors = require('cors');
-const register = require('../routes/register');
-const login = require('../routes/login');
-const news = require('../routes/news');
-const users = require('../routes/users');
-const error = require('../middleware/error');
+const express = require("express");
+const cors = require("cors");
+const register = require("../routes/register");
+const login = require("../routes/login");
+const news = require("../routes/news");
+const users = require("../routes/users");
+const error = require("../middleware/error");
 
 module.exports = function (app) {
-    app.use(express.json());
-    app.use(cors());
+	app.use(express.json());
+	app.use(cors());
 
-    app.use('/api/register', register);
-    app.use('/api/login', login);
-    app.use('/api/news', news);
-    app.use('/api/users', users);
+	app.use("/api/register", register);
+	app.use("/api/login", login);
+	app.use("/api/news", news);
+	app.use("/api/users", users);
 
-    // app.use(error);
-}
+	// app.use(error);
+};

@@ -15,5 +15,5 @@ module.exports = function (app) {
 	app.use("/api/news", news);
 	app.use("/api/users", users);
 
-	// app.use(error);
+	app.use(error);
 };

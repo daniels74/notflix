@@ -18,6 +18,7 @@ router.post("/", async (req, res) => {
 		return res.status(400).send("Cannot find this email.");
 	}
 	console.log(user);
+  
 	const validPassword = await bcrypt.compare(
 		req.body.password,
 		user.password

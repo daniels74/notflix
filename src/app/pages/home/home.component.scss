@@ -1,0 +1,139 @@
+.home-container {
+  position: relative;
+  background-color: black;
+  color: whitesmoke;
+  min-height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+//------------------------------------------------------------------------------------
+//  Signup/ReSignUp Intro
+//------------------------------------------------------------------------------------
+
+.hero-container {
+  height: 70vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.hero-background {
+  position: absolute;
+  height: 70vh;
+  width: 100%;
+  background-image: url("../../../assets/n.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  opacity: 0.7;
+
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  height: 50%;
+  width: 60%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.email-container {
+  background-color: rebeccapurple;
+  height: 10%;
+  width: 50%;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.email-input {
+  height: auto;
+  width: 70%;
+}
+
+.email-button {
+  height: auto;
+  width: 30%;
+
+  background-color: red;
+  color: white;
+
+  border-width: 0;
+}
+
+//------------------------------------------------------------------------------------
+//  Info Slides
+//------------------------------------------------------------------------------------
+
+.info_slides-container {
+  height: auto;
+  width: 100%;
+  background-color: black;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.info_slide {
+  height: 35vh;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+
+  border-top-style: solid;
+  border-width: thick;
+  border-color: rgb(57, 56, 56);
+}
+
+.info_slide_content {
+//   background-color: rgb(112, 112, 51);
+  height: 100%;
+  width: 60%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.imagee {
+  height: auto;
+  width: 40%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.slide-description {
+  height: auto;
+  width: 60%;
+
+//   background-color: green;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}

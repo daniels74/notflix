@@ -19,6 +19,13 @@ export class RegisterComponent {
 
   plans = ["Basic", "Standard", "Premium"];
 
+  prices = ["$9.99", "$15.49", "$19.99"];
+
+  qualities = ["Good", "Better", "Best"];
+
+  resolutions = ["480p", "1080p", "4k + HDR"];
+
+  
   constructor(private _formBuilder: FormBuilder) {}
 
   ngOnInit() {

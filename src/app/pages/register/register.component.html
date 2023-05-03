@@ -85,54 +85,38 @@
       <div class="plans-container">
         <div class="red-blocks-container">
           <div class="red-blocks">
-            <div class="block" *ngFor="let plan of plans">{{ plan }}</div>
+            <div class="stat" class="block" *ngFor="let plan of plans">{{ plan }}</div>
           </div>
         </div>
         <div class="plan-cards">
           <div class="card">
             <div class="card-top">
-              <p class="plan-card-title">Title</p>
+              <p class="plan-card-title">Monthly Price</p>
               <div class="plan-stats">
-                <p>Price</p>
-                <p>Price</p>
-                <p>Price</p>
+                <p class="stat" *ngFor="let price of prices">{{price}}</p>
               </div>
             </div>
             <div class="card-bottom">
-              <p class="plan-card-title">Title</p>
+              <p class="plan-card-title">Video quality</p>
               <div class="plan-stats">
-                <p>Price</p>
-                <p>Price</p>
-                <p>Price</p>
+                <p class="stat" *ngFor="let quality of qualities">{{quality}}</p>
               </div>
             </div>
           </div>
           <div class="card">
             <div class="card-top">
-              <p class="plan-card-title">Title</p>
+              <p class="plan-card-title">Resolution</p>
               <div class="plan-stats">
-                <p>Price</p>
-                <p>Price</p>
-                <p>Price</p>
+                <p class="stat" *ngFor="let resolution of resolutions">{{resolution}}</p>
               </div>
             </div>
             <div class="card-bottom">
-              <p class="plan-card-title">Title</p>
+              <p class="plan-card-title">Watch on your TV, computer, phone, and tablet</p>
               <div class="plan-stats">
-                <p>Price</p>
-                <p>Price</p>
-                <p>Price</p>
+                <p class="stat" *ngFor="let resolution of resolutions">&#x2713;</p>
               </div>
             </div>
           </div>
-          <!-- <div class="card">
-            <p class="plan-card-title">Title</p>
-            <div class="plan-stats">
-              <p>Price</p>
-              <p>Price</p>
-              <p>Price</p>
-            </div>
-          </div> -->
         </div>
       </div>
       <!-- 

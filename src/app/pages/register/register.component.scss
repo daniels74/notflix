@@ -1,0 +1,140 @@
+.page-container {
+  background-color: rgb(179, 168, 168);
+  height: 90vh;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container {
+  //   background-color: rgb(166, 128, 128);
+  height: 60%;
+  width: 25%;
+}
+
+.large-box {
+  background-color: white;
+  height: 80%;
+  width: 70%;
+}
+
+.plans-container {
+  position: relative;
+  height: 40vh;
+  width: 100%;
+  background-color: rgb(39, 46, 44);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.plans-title {
+    height: 20%;
+    width: 100%;
+    background-color: rgb(255, 0, 183);
+}
+
+.red-blocks-container {
+    position: relative;
+    height: 40%;
+    width: 100%;
+    margin-right: 0;
+    background-color: blue;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.red-blocks {
+    height: 100%;
+    width: 50%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.block {
+    height: 6rem;
+    width: 6rem;
+    background-color: red;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.plan-cards {
+    height: 60%;
+    width: 100%;
+    background-color: yellowgreen;
+}
+
+.card {
+    position: relative;
+    height: 50%;
+    width: 100%;
+    background-color: aqua;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-top {
+  position: relative;
+  height: 50%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.card-bottom {
+  position: relative;
+  height: 50%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.plan-card-title{
+  height: 100%;
+  width: 50%;
+  background-color: violet;
+}
+
+.plan-stats {
+  height: 100%;
+  width: 50%;
+  background-color: brown;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.inputs {
+  width: 100%;
+}
+
+.next-btn {
+  background-color: rgb(220, 2, 2);
+  color: white;
+  width: 100%;
+  height: 3rem;
+  border-width: 0;
+}

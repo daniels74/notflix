@@ -1,0 +1,122 @@
+.page-container {
+  position: relative;
+  //   background-color: blue;
+  height: 90vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 3%;
+}
+
+.login-container {
+  position: absolute;
+  color: white;
+  height: 50%;
+  width: 20%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.login-background {
+  position: absolute;
+  background-color: black;
+  height: 52%;
+  width: 20%;
+}
+
+.login-title {
+  height: 15%;
+  width: 70%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  // background-color: blue;
+}
+
+.login-form {
+  position: relative;
+  // background-color: green;
+  height: 50%;
+  width: 70%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text-inputs-container {
+  // background-color: purple;
+  height: 50%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.text-input {
+  background-color: rgb(56, 50, 50);
+  height: 30%;
+  width: 100%;
+
+  border-radius: 0.2rem;
+  border-width: 0;
+}
+
+.submit-container {
+  position: absolute;
+  margin-top: 40%;
+  height: 60%;
+  width: 100%;
+}
+
+.submit-btn {
+  position: relative;
+  background-color: red;
+  color: white;
+  height: 30%;
+  width: 100%;
+
+  border-width: 0;
+  border-radius: 0.1rem;
+}
+
+.login-options {
+  color: rgb(56, 50, 50);
+  height: 5%;
+  width: 90%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.user-signup-info {
+  color: rgb(56, 50, 50);
+  height: 35%;
+  width: 60%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 1rem;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}

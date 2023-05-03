@@ -1,0 +1,170 @@
+<div class="page-container">
+  <mat-horizontal-stepper
+    [className]="largeForm ? 'large-box' : 'form-container'"
+    [linear]="isLinear"
+    #stepper
+  >
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Basic Details</ng-template>
+
+        <h1>Create a password to start your membership</h1>
+        <h5>Just a few more steps and you're done!</h5>
+        <h5>We hate paperwork, too.</h5>
+
+        <mat-form-field class="inputs">
+          <mat-label>Email</mat-label>
+
+          <input matInput placeholder="Email" formControlName="email" />
+        </mat-form-field>
+
+        <br />
+
+        <mat-form-field class="inputs">
+          <mat-label>Password</mat-label>
+
+          <input matInput placeholder="Password" formControlName="password" />
+        </mat-form-field>
+
+        <div>
+          <button class="next-btn" mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Username and Api</ng-template>
+
+        <h1>Create a Username && Add your Tmdb Api_Key</h1>
+        <h5>Just a few more steps and you're done!</h5>
+        <h5>We hate paperwork, too.</h5>
+
+        <mat-form-field class="inputs">
+          <mat-label>Enter your username</mat-label>
+          <input matInput placeholder="username" formControlName="username" />
+        </mat-form-field>
+
+        <br />
+
+        <mat-form-field class="inputs">
+          <mat-label>Add your tmdb Api_Key</mat-label>
+
+          <input matInput placeholder="Api key" formControlName="tmdb_key" />
+        </mat-form-field>
+
+        <br />
+
+        <div>
+          <!-- <button class="next-btn" mat-button matStepperPrevious>Back</button> -->
+
+          <button
+            class="next-btn"
+            mat-button
+            matStepperNext
+            (click)="expandForm(!largeForm)"
+          >
+            Next
+          </button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step class="large-box">
+      <ng-template matStepLabel>Choose Plan</ng-template>
+
+      <div class="plans-title">
+        <h1>Choose the plan that's right for you.</h1>
+        <ul>
+          <li><p>Watch all you want. Add-free.</p></li>
+          <li><p>Recommondations just for you.</p></li>
+          <li><p>Change or cancel your plan anytime.</p></li>
+        </ul>
+      </div>
+
+      <div class="plans-container">
+        <div class="red-blocks-container">
+          <div class="red-blocks">
+            <div class="block" *ngFor="let plan of plans">{{ plan }}</div>
+          </div>
+        </div>
+        <div class="plan-cards">
+          <div class="card">
+            <div class="card-top">
+              <p class="plan-card-title">Title</p>
+              <div class="plan-stats">
+                <p>Price</p>
+                <p>Price</p>
+                <p>Price</p>
+              </div>
+            </div>
+            <div class="card-bottom">
+              <p class="plan-card-title">Title</p>
+              <div class="plan-stats">
+                <p>Price</p>
+                <p>Price</p>
+                <p>Price</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-top">
+              <p class="plan-card-title">Title</p>
+              <div class="plan-stats">
+                <p>Price</p>
+                <p>Price</p>
+                <p>Price</p>
+              </div>
+            </div>
+            <div class="card-bottom">
+              <p class="plan-card-title">Title</p>
+              <div class="plan-stats">
+                <p>Price</p>
+                <p>Price</p>
+                <p>Price</p>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="card">
+            <p class="plan-card-title">Title</p>
+            <div class="plan-stats">
+              <p>Price</p>
+              <p>Price</p>
+              <p>Price</p>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <!-- 
+      <mat-list>
+        <mat-list-item>
+          <strong>Name:</strong>
+          {{ this.firstFormGroup.value.name }}</mat-list-item
+        >
+
+        <mat-list-item>
+          <strong>Description:</strong>
+          {{ this.firstFormGroup.value.description }}</mat-list-item
+        >
+
+        <mat-list-item>
+          <strong>Amount:</strong>
+          {{ this.secondFormGroup.value.amount }}</mat-list-item
+        >
+
+        <mat-list-item>
+          <strong>Stock:</strong>
+          {{ this.secondFormGroup.value.stock }}</mat-list-item
+        >
+      </mat-list> -->
+
+      <div>
+        <!-- <button mat-button matStepperPrevious>Back</button>
+
+        <button mat-button (click)="stepper.reset()">Reset</button> -->
+
+        <button mat-button (click)="submit()" class="next-btn">Submit</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

@@ -1,5 +1,5 @@
 .page-container {
-  background-color: rgb(179, 168, 168);
+  background-color: snow;
   height: 90vh;
   width: 100%;
 
@@ -13,10 +13,11 @@
   //   background-color: rgb(166, 128, 128);
   height: 60%;
   width: 25%;
+  background-color: snow;
 }
 
 .large-box {
-  background-color: white;
+  background-color: snow;
   height: 80%;
   width: 70%;
 }
@@ -34,60 +35,79 @@
 }
 
 .plans-title {
-    height: 20%;
-    width: 100%;
-    // background-color: rgb(255, 0, 183);
+  height: 20%;
+  width: 100%;
+  // background-color: rgb(255, 0, 183);
 }
 
 .red-blocks-container {
-    position: relative;
-    height: 40%;
-    width: 100%;
-    margin-right: 0;
-    // background-color: blue;
+  position: relative;
+  height: 40%;
+  width: 100%;
+  margin-right: 0;
+  // background-color: blue;
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .red-blocks {
-    height: 100%;
-    width: 50%;
+  height: 100%;
+  width: 50%;
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .block {
-    height: 6rem;
-    width: 6rem;
-    background-color: red;
+  height: 6rem;
+  width: 10rem;
+  // background-color: red;
+}
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+.bright-block {
+  background-color: red;
+  color: white;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.dull-block {
+  background-color: rgb(175, 113, 113);
+  color: white;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .plan-cards {
-    height: 60%;
-    width: 100%;
-    // background-color: yellowgreen;
+  height: 60%;
+  width: 100%;
+  // background-color: yellowgreen;
 }
 
 .card {
-    position: relative;
-    height: 50%;
-    width: 100%;
-    // background-color: aqua;
+  position: relative;
+  height: 50%;
+  width: 100%;
+  // background-color: aqua;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .card-top {
@@ -110,7 +130,7 @@
   align-items: center;
 }
 
-.plan-card-title{
+.plan-card-title {
   height: 100%;
   width: 49%;
   // background-color: violet;
@@ -145,14 +165,44 @@
   justify-content: center;
 }
 
+.selected-stat {
+  color: red;
+}
+
+.notSelected-stat {
+  color: black;
+}
+
 .inputs {
   width: 100%;
 }
 
+.btn-container {
+  height: auto;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 .next-btn {
   background-color: rgb(220, 2, 2);
-  color: white;
+  // color: white;
   width: 100%;
   height: 3rem;
   border-width: 0;
+}
+
+.submit-btn {
+  background-color: rgb(220, 2, 2);
+  // color: white;
+  width: 20%;
+  height: 3rem;
+  border-width: 0;
+}
+
+.btn-txt-color {
+  color: white
 }

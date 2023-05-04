@@ -27,7 +27,9 @@
         </mat-form-field>
 
         <div>
-          <button class="next-btn" mat-button matStepperNext>Next</button>
+          <button class="next-btn" mat-button matStepperNext>
+            <h3 class="btn-txt-color">Next</h3>
+          </button>
         </div>
       </form>
     </mat-step>
@@ -64,7 +66,7 @@
             matStepperNext
             (click)="expandForm(!largeForm)"
           >
-            Next
+            <h3 class="btn-txt-color">Next</h3>
           </button>
         </div>
       </form>
@@ -85,7 +87,14 @@
       <div class="plans-container">
         <div class="red-blocks-container">
           <div class="red-blocks">
-            <div class="stat" class="block" *ngFor="let plan of plans">{{ plan }}</div>
+            <div class="block" *ngFor="let plan of plans; let i=index;" (click)="selectPlan(i)">
+              <div [ngClass]="{
+                'bright-block': i === selectedIndex,
+                'dull-block': i !== selectedIndex,
+              }">
+                {{ plan }}
+              </div>
+            </div>
           </div>
         </div>
         <div class="plan-cards">
@@ -93,13 +102,27 @@
             <div class="card-top">
               <p class="plan-card-title">Monthly Price</p>
               <div class="plan-stats">
-                <p class="stat" *ngFor="let price of prices">{{price}}</p>
+                <div class="stat" *ngFor="let price of prices;  let i=index;">
+                  <p [ngClass]="{
+                    'selected-stat': i === selectedIndex,
+                    'notSelected-stat': i !== selectedIndex,
+                  }">
+                    {{price}}
+                  </p>
+                </div>
               </div>
             </div>
             <div class="card-bottom">
               <p class="plan-card-title">Video quality</p>
               <div class="plan-stats">
-                <p class="stat" *ngFor="let quality of qualities">{{quality}}</p>
+                <div class="stat" *ngFor="let quality of qualities; let i=index;">
+                  <p [ngClass]="{
+                    'selected-stat': i === selectedIndex,
+                    'notSelected-stat': i !== selectedIndex,
+                  }">
+                  {{quality}}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -107,13 +130,27 @@
             <div class="card-top">
               <p class="plan-card-title">Resolution</p>
               <div class="plan-stats">
-                <p class="stat" *ngFor="let resolution of resolutions">{{resolution}}</p>
+                <div class="stat" *ngFor="let resolution of resolutions; let i = index;">
+                  <p [ngClass]="{
+                    'selected-stat': i === selectedIndex,
+                    'notSelected-stat': i !== selectedIndex,
+                  }">
+                  {{resolution}}
+                  </p>
+              </div>
               </div>
             </div>
             <div class="card-bottom">
               <p class="plan-card-title">Watch on your TV, computer, phone, and tablet</p>
               <div class="plan-stats">
-                <p class="stat" *ngFor="let resolution of resolutions">&#x2713;</p>
+                <div class="stat" *ngFor="let resolution of resolutions; let i=index;">
+                  <p [ngClass]="{
+                    'selected-stat': i === selectedIndex,
+                    'notSelected-stat': i !== selectedIndex,
+                  }">
+                  &#x2713;
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -142,12 +179,14 @@
         >
       </mat-list> -->
 
-      <div>
+      <div class="btn-container">
         <!-- <button mat-button matStepperPrevious>Back</button>
 
         <button mat-button (click)="stepper.reset()">Reset</button> -->
 
-        <button mat-button (click)="submit()" class="next-btn">Submit</button>
+        <button mat-button (click)="submit()" class="submit-btn">
+          <h3 class="btn-txt-color">Submit</h3>
+        </button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

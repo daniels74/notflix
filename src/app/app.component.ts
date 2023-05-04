@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'notflix';
+
+  selectedPlanIndex: number;
+
+  constructor() {
+    this.selectedPlanIndex = 0;
+  }
+
+  setPlanIndex(planIndex: any) {
+    console.log(planIndex);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,7 +7,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  title = 'newMat';
+
+  // @Output() selectedPlanIndex!: number;
+  @Output() emitSelectedPlan = new EventEmitter();
 
   isLinear = true;
 
@@ -25,6 +27,7 @@ export class RegisterComponent {
 
   resolutions = ["480p", "1080p", "4k + HDR"];
 
+  selectedIndex = 0;
   
   constructor(private _formBuilder: FormBuilder) {}
 
@@ -46,6 +49,14 @@ export class RegisterComponent {
     this.largeForm = decide; 
   }
 
+  // selectPlan(planIndex: number): void {
+  //   this.emitSelectedPlan.emit(planIndex);
+  // }
+  selectPlan(planIndex: number) {
+    this.selectedIndex = planIndex;
+    console.log(this.selectedIndex);
+  }
+  
   submit() {
     console.log(this.firstFormGroup.value);
 

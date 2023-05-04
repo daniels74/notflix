@@ -8,9 +8,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent {
 
-  // @Output() selectedPlanIndex!: number;
-  @Output() emitSelectedPlan = new EventEmitter();
-
   isLinear = true;
 
   firstFormGroup!: FormGroup;
@@ -49,12 +46,8 @@ export class RegisterComponent {
     this.largeForm = decide; 
   }
 
-  // selectPlan(planIndex: number): void {
-  //   this.emitSelectedPlan.emit(planIndex);
-  // }
   selectPlan(planIndex: number) {
     this.selectedIndex = planIndex;
-    console.log(this.selectedIndex);
   }
   
   submit() {

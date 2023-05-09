@@ -8,7 +8,13 @@
             {{ movie.title }}
           </div>
         </div> -->
-        <app-movie-item baseImgUrl={{this.baseImgUrl}} movieimage={{movie.backdrop_path}} movietitle={{movie.title}}/>
+        <app-movie-item
+          baseImgUrl="{{ this.baseImgUrl }}"
+          movieImage="{{ movie.poster_path }}"
+          movieTitle="{{ movie.title }}"
+          releaseDate="{{movie.release_date}}"
+          voteAverage="{{movie.vote_average}}"
+        />
       </div>
     </div>
   </div>

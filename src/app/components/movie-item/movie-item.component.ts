@@ -7,12 +7,13 @@ import { Component, Input } from '@angular/core';
 })
 export class MovieItemComponent {
 
-@Input() movieimage!: string;
+@Input() movieImage!: string;
 
-@Input() movietitle!: string;
+@Input() movieTitle!: string;
 
 @Input() baseImgUrl!: string;
 
-fullImgUrl:string = this.movieimage;
+@Input() releaseDate!: string;
 
+@Input() voteAverage!: string;
 }

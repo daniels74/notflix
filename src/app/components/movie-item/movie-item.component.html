@@ -1,10 +1,23 @@
 <div class="card">
   <div class="card-content">
     <div class="img-container">
-      <img src="{{ baseImgUrl + movieimage }}" alt="" />
+      <img class="movie-img" src="{{ baseImgUrl + movieImage }}" alt="" />
     </div>
     <div class="movie-info">
-      {{ movietitle }}
+      <div class="title">
+        {{ movieTitle }}
+      </div>
+      <div class="date-rate">
+        <div>
+          {{ releaseDate }}
+        </div>
+        <div>
+          {{ voteAverage }}
+        </div>
+      </div>
+      <div class="more-options">
+        <button class="more-btn">More Details</button>
+      </div>
     </div>
   </div>
 </div>

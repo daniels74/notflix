@@ -5,7 +5,13 @@
     </div>
     <div class="movie-info">
       <div class="title">
-        {{ movieTitle }}
+        <h3>
+          {{
+            movieTitle.length > 15
+              ? (movieTitle | slice : 0 : 15) + "..."
+              : movieTitle
+          }}
+        </h3>
       </div>
       <div class="date-rate">
         <div>

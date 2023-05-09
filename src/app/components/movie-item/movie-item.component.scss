@@ -37,6 +37,7 @@
 }
 
 .movie-img {
+    position: relative;
     width: 100%;
     height: 100%;
     
@@ -45,6 +46,7 @@
 }
 
 .movie-info {
+    position: relative;
     height: 30%;
     width: 100%;
 
@@ -55,7 +57,8 @@
 }
 
 .title {
-    height: 40%;
+    position: relative;
+    height: 25%;
     width: 100%;
     //background-color: red;
 
@@ -66,9 +69,10 @@
 }
 
 .date-rate {
+    position: relative;
     height: 30%;
     width: 100%;
-   // background-color: blue;
+    //background-color: blue;
 
     display: flex;
     flex-direction: row;
@@ -77,8 +81,10 @@
 }
 
 .more-options {
-    height: 30%;
+    position: relative;
+    height: 45%;
     width: 100%;
+    //background-color: gold;
 
     display: flex;
     flex-direction: row;
@@ -87,7 +93,7 @@
 }
 
 .more-btn {
-    height: 90%;
+    height: 60%;
     width: 50%;
     background-color: red;
 

@@ -3,17 +3,16 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-movie-item',
   templateUrl: './movie-item.component.html',
-  styleUrls: ['./movie-item.component.scss']
+  styleUrls: ['./movie-item.component.scss'],
 })
 export class MovieItemComponent {
+  @Input() movieImage!: string;
 
-@Input() movieImage!: string;
+  @Input() movieTitle!: string;
 
-@Input() movieTitle!: string;
+  @Input() baseImgUrl!: string;
 
-@Input() baseImgUrl!: string;
+  @Input() releaseDate!: string;
 
-@Input() releaseDate!: string;
-
-@Input() voteAverage!: string;
+  @Input() voteAverage!: string;
 }

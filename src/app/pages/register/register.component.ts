@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -25,20 +25,37 @@ export class RegisterComponent {
   resolutions = ["480p", "1080p", "4k + HDR"];
 
   selectedIndex = 0;
+
+  get email(): FormControl {
+    return this.firstFormGroup.get('email') as FormControl;
+  }
+
+  get password(): FormControl {
+    return this.firstFormGroup.get('password') as FormControl;
+  }
+
+  get username(): FormControl {
+    return this.secondFormGroup.get('username') as FormControl;
+  }
+
+  get tmdb_key(): FormControl {
+    return this.secondFormGroup.get('tmdb_key') as FormControl;
+  }
   
   constructor(private _formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      email: ['', Validators.nullValidator],
 
-      password: ['', Validators.nullValidator],
+    this.firstFormGroup = this._formBuilder.group({
+      email: new FormControl ('', [Validators.required, Validators.email]),//['', [Validators.required.Validators.email],
+
+      password: new FormControl ('', [Validators.required]),
     });
 
     this.secondFormGroup = this._formBuilder.group({
-      username: ['', Validators.nullValidator],
+      username: new FormControl ('', [Validators.required]),
 
-      tmdb_key: ['', Validators.nullValidator],
+      tmdb_key: new FormControl ('', [Validators.required]),
     });
   }
 

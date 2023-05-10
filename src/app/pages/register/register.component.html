@@ -12,10 +12,25 @@
         <h5>Just a few more steps and you're done!</h5>
         <h5>We hate paperwork, too.</h5>
 
-        <mat-form-field class="inputs">
+        <mat-form-field class="inputs" class="validator-color">
           <mat-label>Email</mat-label>
 
-          <input matInput placeholder="Email" formControlName="email" />
+          <input matInput placeholder="Email" [formControl]="email" />
+
+          <mat-error
+            *ngIf="
+              email.hasError('email') &&
+              !email.hasError('required')
+            "
+            class="validator-color"
+          >
+            Please enter a valid email address
+          </mat-error>
+
+          <mat-error *ngIf="email.hasError('required')" class="validator-color">
+            Email is <strong>required</strong>
+          </mat-error>
+
         </mat-form-field>
 
         <br />
@@ -23,7 +38,11 @@
         <mat-form-field class="inputs">
           <mat-label>Password</mat-label>
 
-          <input matInput placeholder="Password" formControlName="password" />
+          <input matInput placeholder="Password" [formControl]="password" />
+
+          <mat-error *ngIf="password.hasError('required')" class="validator-color">
+            Password is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <div>
@@ -44,7 +63,11 @@
 
         <mat-form-field class="inputs">
           <mat-label>Enter your username</mat-label>
-          <input matInput placeholder="username" formControlName="username" />
+          <input matInput placeholder="username" [formControl]="username" />
+
+          <mat-error *ngIf="username.hasError('required')" class="validator-color">
+            Username is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <br />
@@ -52,7 +75,11 @@
         <mat-form-field class="inputs">
           <mat-label>Add your tmdb Api_Key</mat-label>
 
-          <input matInput placeholder="Api key" formControlName="tmdb_key" />
+          <input matInput placeholder="Api key" [formControl]="tmdb_key" />
+          
+          <mat-error *ngIf="tmdb_key.hasError('required')" class="validator-color">
+            tmdb_key is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <br />

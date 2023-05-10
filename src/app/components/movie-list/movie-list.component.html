@@ -2,24 +2,14 @@
   <div class="movieList-contianer">
     <div class="cards">
       <div *ngFor="let movie of movies$ | async">
-        <!-- <div class="card">
-          <div class="card-content">
-            {{ movie.backdrop_path }}
-            {{ movie.title }}
-          </div>
-        </div> -->
         <app-movie-item
           baseImgUrl="{{ this.baseImgUrl }}"
           movieImage="{{ movie.poster_path }}"
           movieTitle="{{ movie.title }}"
-          releaseDate="{{movie.release_date}}"
-          voteAverage="{{movie.vote_average}}"
+          releaseDate="{{ movie.release_date }}"
+          voteAverage="{{ movie.vote_average }}"
         />
       </div>
     </div>
   </div>
-
-  <!-- <div *ngFor="let configs of moviesConfig$ | async">
-        {{configs}}
-    </div> -->
 </div>

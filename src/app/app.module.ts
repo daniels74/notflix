@@ -24,6 +24,7 @@ import { MovieService } from './services/movie.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MovieListComponent } from './components/movie-list/movie-list.component';
 import { MovieItemComponent } from './components/movie-item/movie-item.component';
+import { LogintwoComponent } from './pages/logintwo/logintwo.component';
 
 
 export const BaseUrl = new InjectionToken<string>('');
@@ -39,12 +40,14 @@ export const moviesConfigUrl = new InjectionToken<string>('');
     BackgroundComponent,
     MovieListComponent,
     MovieItemComponent,
+    LogintwoComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
       { path: 'register', component: RegisterComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'logintwo', component: LogintwoComponent },
       { path: '', component: HomeComponent },
       { path: 'list', component: MovieListComponent },
     ]),

@@ -6,7 +6,6 @@ async function getDocument(MongoModel, id) {
     const entity = await MongoModel.find({ _id: id });
     return entity;
 }
-
 async function postDocument(MongoModel, newdocument) {
     const entity = new MongoModel(newdocument);
     try {

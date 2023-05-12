@@ -1,14 +1,3 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-login',
-//   templateUrl: './login.component.html',
-//   styleUrls: ['./login.component.scss']
-// })
-// export class LoginComponent {
-
-// }
-
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -17,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { MyErrorStateMatcher } from './myerrorstatematcher';
+import { MyErrorStateMatcher } from '../../pages/login/myerrorstatematcher';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -58,4 +47,3 @@ export class LoginComponent {
     });
   }
 }
-

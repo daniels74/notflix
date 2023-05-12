@@ -3,6 +3,7 @@
     <div class="cards">
       <div *ngFor="let movie of movies$ | async">
         <app-movie-item
+          movieId="{{movie.id}}"
           baseImgUrl="{{ this.baseImgUrl }}"
           movieImage="{{ movie.poster_path }}"
           movieTitle="{{ movie.title }}"

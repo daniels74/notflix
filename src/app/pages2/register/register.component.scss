@@ -1,0 +1,229 @@
+.page-container {
+  background-color: snow;
+  height: 90vh;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container {
+  //   background-color: rgb(166, 128, 128);
+  height: 60%;
+  width: 25%;
+  background-color: snow;
+}
+
+.validator-color {
+  color: orange;
+}
+
+.large-box {
+  background-color: snow;
+  height: 80%;
+  width: 70%;
+}
+
+.plans-container {
+  position: relative;
+  height: 40vh;
+  width: 100%;
+  // background-color: rgb(39, 46, 44);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.plans-title {
+  height: 20%;
+  width: 100%;
+  // background-color: rgb(255, 0, 183);
+}
+
+.red-blocks-container {
+  position: relative;
+  height: 40%;
+  width: 100%;
+  margin-right: 0;
+  // background-color: blue;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.red-blocks {
+  height: 100%;
+  width: 50%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.block {
+  height: auto;
+  width: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bright-block {
+  background-color: red;
+  color: white;
+  height: 6rem;
+  width: 10rem;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.dull-block {
+  background-color: rgb(175, 113, 113);
+  color: white;
+  height: 6rem;
+  width: 10rem;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.down-arrow {
+  width: 0; 
+  height: 0; 
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  
+  border-top: 20px solid #f00;
+}
+
+.plan-cards {
+  height: 60%;
+  width: 100%;
+  // background-color: yellowgreen;
+}
+
+.card {
+  position: relative;
+  height: 50%;
+  width: 100%;
+  // background-color: aqua;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-top {
+  position: relative;
+  height: 50%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.line-seperator {
+  border-bottom: 1px solid grey;
+}
+
+.card-bottom {
+  position: relative;
+  height: 50%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.plan-card-title {
+  height: 100%;
+  width: 49%;
+  // background-color: violet;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 1%;
+}
+
+.plan-stats {
+  position: relative;
+  height: 100%;
+  width: 50%;
+  // background-color: brown;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.stat {
+  height: 100%;
+  width: 100%;
+
+  // background-color: aqua;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.selected-stat {
+  color: red;
+}
+
+.notSelected-stat {
+  color: black;
+}
+
+.inputs {
+  width: 100%;
+}
+
+.btn-container {
+  height: auto;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.next-btn {
+  background-color: rgb(220, 2, 2);
+  // color: white;
+  width: 100%;
+  height: 3rem;
+  border-width: 0;
+}
+
+.submit-btn {
+  background-color: rgb(220, 2, 2);
+  // color: white;
+  width: 20%;
+  height: 3rem;
+  border-width: 0;
+}
+
+.btn-txt-color {
+  color: white
+}

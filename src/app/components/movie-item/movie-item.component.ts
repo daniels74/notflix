@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-movie-item',
@@ -15,4 +15,10 @@ export class MovieItemComponent {
   @Input() releaseDate!: string;
 
   @Input() voteAverage!: string;
+
+  @Input() movieId!: string;
+
+  showMore(id: string){
+
+  }
 }

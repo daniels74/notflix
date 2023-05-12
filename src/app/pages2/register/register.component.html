@@ -1,0 +1,221 @@
+<div class="page-container">
+  <mat-horizontal-stepper
+    [className]="largeForm ? 'large-box' : 'form-container'"
+    [linear]="isLinear"
+    #stepper
+  >
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Basic Details</ng-template>
+
+        <h1>Create a password to start your membership</h1>
+        <h5>Just a few more steps and you're done!</h5>
+        <h5>We hate paperwork, too.</h5>
+
+        <mat-form-field class="inputs" class="validator-color">
+          <mat-label>Email</mat-label>
+
+          <input matInput placeholder="Email" [formControl]="email" />
+
+          <mat-error
+            *ngIf="
+              email.hasError('email') &&
+              !email.hasError('required')
+            "
+            class="validator-color"
+          >
+            Please enter a valid email address
+          </mat-error>
+
+          <mat-error *ngIf="email.hasError('required')" class="validator-color">
+            Email is <strong>required</strong>
+          </mat-error>
+
+        </mat-form-field>
+
+        <br />
+
+        <mat-form-field class="inputs">
+          <mat-label>Password</mat-label>
+
+          <input matInput placeholder="Password" [formControl]="password" />
+
+          <mat-error *ngIf="password.hasError('required')" class="validator-color">
+            Password is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <div>
+          <button class="next-btn" mat-button matStepperNext>
+            <h3 class="btn-txt-color">Next</h3>
+          </button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Username and Api</ng-template>
+
+        <h1>Create a Username && Add your Tmdb Api_Key</h1>
+        <h5>Just a few more steps and you're done!</h5>
+        <h5>We hate paperwork, too.</h5>
+
+        <mat-form-field class="inputs">
+          <mat-label>Enter your username</mat-label>
+          <input matInput placeholder="username" [formControl]="username" />
+
+          <mat-error *ngIf="username.hasError('required')" class="validator-color">
+            Username is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <br />
+
+        <mat-form-field class="inputs">
+          <mat-label>Add your tmdb Api_Key</mat-label>
+
+          <input matInput placeholder="Api key" [formControl]="tmdb_key" />
+          
+          <mat-error *ngIf="tmdb_key.hasError('required')" class="validator-color">
+            tmdb_key is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <br />
+
+        <div>
+          <!-- <button class="next-btn" mat-button matStepperPrevious>Back</button> -->
+
+          <button
+            class="next-btn"
+            mat-button
+            matStepperNext
+            (click)="expandForm(!largeForm)"
+          >
+            <h3 class="btn-txt-color">Next</h3>
+          </button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step class="large-box">
+      <ng-template matStepLabel>Choose Plan</ng-template>
+
+      <div class="plans-title">
+        <h1>Choose the plan that's right for you.</h1>
+        <ul>
+          <li><p>Watch all you want. Add-free.</p></li>
+          <li><p>Recommondations just for you.</p></li>
+          <li><p>Change or cancel your plan anytime.</p></li>
+        </ul>
+      </div>
+
+      <div class="plans-container">
+        <div class="red-blocks-container">
+          <div class="red-blocks">
+            <div class="block" *ngFor="let plan of plans; let i=index;" (click)="selectPlan(i)">
+              <div [ngClass]="{
+                'bright-block': i === selectedIndex,
+                'dull-block': i !== selectedIndex,
+              }">
+                {{ plan }}
+              </div>
+              <div class="down-arrow" *ngIf="i === selectedIndex"></div>
+            </div>
+          </div>
+        </div>
+        <div class="plan-cards">
+          <div class="card">
+            <div class="card-top line-seperator">
+              <p class="plan-card-title">Monthly Price</p>
+              <div class="plan-stats">
+                <div class="stat" *ngFor="let price of prices;  let i=index;">
+                  <p [ngClass]="{
+                    'selected-stat': i === selectedIndex,
+                    'notSelected-stat': i !== selectedIndex,
+                  }">
+                    {{price}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="card-bottom">
+              <p class="plan-card-title">Video quality</p>
+              <div class="plan-stats">
+                <div class="stat" *ngFor="let quality of qualities; let i=index;">
+                  <p [ngClass]="{
+                    'selected-stat': i === selectedIndex,
+                    'notSelected-stat': i !== selectedIndex,
+                  }">
+                  {{quality}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-top line-seperator">
+              <p class="plan-card-title">Resolution</p>
+              <div class="plan-stats">
+                <div class="stat" *ngFor="let resolution of resolutions; let i = index;">
+                  <p [ngClass]="{
+                    'selected-stat': i === selectedIndex,
+                    'notSelected-stat': i !== selectedIndex,
+                  }">
+                  {{resolution}}
+                  </p>
+              </div>
+              </div>
+            </div>
+            <div class="card-bottom">
+              <p class="plan-card-title">Watch on your TV, computer, phone, and tablet</p>
+              <div class="plan-stats">
+                <div class="stat" *ngFor="let resolution of resolutions; let i=index;">
+                  <p [ngClass]="{
+                    'selected-stat': i === selectedIndex,
+                    'notSelected-stat': i !== selectedIndex,
+                  }">
+                  &#x2713;
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 
+      <mat-list>
+        <mat-list-item>
+          <strong>Name:</strong>
+          {{ this.firstFormGroup.value.name }}</mat-list-item
+        >
+
+        <mat-list-item>
+          <strong>Description:</strong>
+          {{ this.firstFormGroup.value.description }}</mat-list-item
+        >
+
+        <mat-list-item>
+          <strong>Amount:</strong>
+          {{ this.secondFormGroup.value.amount }}</mat-list-item
+        >
+
+        <mat-list-item>
+          <strong>Stock:</strong>
+          {{ this.secondFormGroup.value.stock }}</mat-list-item
+        >
+      </mat-list> -->
+
+      <div class="btn-container">
+        <!-- <button mat-button matStepperPrevious>Back</button>
+
+        <button mat-button (click)="stepper.reset()">Reset</button> -->
+
+        <button mat-button (click)="submit()" class="submit-btn">
+          <h3 class="btn-txt-color">Submit</h3>
+        </button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

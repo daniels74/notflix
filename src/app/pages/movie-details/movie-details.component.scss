@@ -1,0 +1,179 @@
+*{ 
+    color: white;
+
+}
+
+.movie-detail-page {
+    // background-color: rgb(15, 43, 52);
+    height: 95vh;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.background-img {
+    position: absolute;
+    z-index: 0;
+    height: 95%;
+    width: 100%;
+    
+}
+
+.main-container {
+    z-index: 1;
+    height: 95%;
+    width: 95%;
+    // background-color: rgb(142, 57, 57);
+
+    border-radius: 1rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.left-detail {
+    height: 100%;
+    width: 50%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.movie-img-container {
+    height: 50%;
+    width: 100%;
+    // background-color: red;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.movie-img {
+    height: 95%;
+    width: auto;
+
+    border-radius: .5rem;
+}
+
+.release-date-container {
+    height: 25%;
+    width: 100%;
+    // background-color: rgb(153, 51, 51);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.genres-container {
+    height: 25%;
+    width: 100%;
+    // background-color: rgb(206, 191, 191);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.right-detail {
+    height: 100%;
+    width: 50%;
+    // background-color: darkblue;
+
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.title-container {
+    height: 10%;
+    width: 70%;
+
+    background-color: 	rgba(141, 2, 31, 0.5);
+
+    border-radius: .5rem;
+    border-width: thin;
+    border-style: solid;
+    border-color: red;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.title-content {
+    color: white;
+} 
+
+.overview-container {
+    height: 20%;
+    width: 85%;
+
+    background-color: 	rgba(141, 2, 31, 0.5);
+
+    border-radius: .5rem;
+    border-width: thin;
+    border-style: solid;
+    border-color: red;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.producers-container {
+    height: 30%;
+    width: 85%;
+
+    background-color: 	rgba(141, 2, 31, 0.5);
+
+    border-radius: .5rem;
+    border-width: thin;
+    border-style: solid;
+    border-color: red;
+}
+
+.cards {
+    height: 100%;
+    width: auto;
+
+    position: relative;
+    display: grid;
+    grid-auto-columns: 100%;
+    grid-column-gap: 10px;
+    grid-auto-flow: column;
+    //padding: 25px 0px;
+    list-style: none;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+
+}
+
+.producer-card {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    // background-color: blue;
+
+    border-radius: .5rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}

@@ -15,11 +15,12 @@ export class MovieListComponent implements OnInit {
 
   constructor(public movieListService: MovieService) {}
   ngOnInit() {
-    // this.movieListService.configMoviesDB();
-    // console.log('BASEURL: ', this.movieListService.configMoviesDB());
+    
+    // Set img (base Url/img size) observable
     this.movieListService.configMoviesDB();
+
+    // Get img config url observable
     this.moviesConfig$ = this.movieListService.moviesConfig$;
-    // console.log('moviesConfig$: ', this.moviesConfig$);
 
     this.moviesConfig$.forEach((item) => {
       console.log("Item: ", item);

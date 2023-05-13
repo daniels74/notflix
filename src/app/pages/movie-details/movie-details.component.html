@@ -1,0 +1,50 @@
+<div class="movie-detail-page">
+  <img
+    src="{{ this.baseImgUrl_Cover + this.backdrop_path }}"
+    alt="background"
+    class="background-img"
+  />
+  <div class="main-container">
+    <div class="left-detail">
+      <div class="movie-img-container">
+        <img
+          src="{{ this.baseImgUrl_Cover + this.poster_path }}"
+          alt="background"
+          class="movie-img"
+        />
+      </div>
+
+      <div class="release-date-container">
+        <h1>Release Date: {{ releaseDate }}</h1>
+      </div>
+      <div class="genres-container">
+        <div *ngFor="let genere of genres">
+          {{ genere.name }}
+        </div>
+      </div>
+    </div>
+    <div class="right-detail">
+      <div class="title-container">
+        <div class="opacity-layer"></div>
+        <h1 class="title-content">
+          {{ this.movieTitle }}
+        </h1>
+      </div>
+      <div class="overview-container">
+        <h3>
+          {{ overview }}
+        </h3>
+      </div>
+      <div class="producers-container">
+        <div class="cards">
+          <div *ngFor="let producer of producers" class="producer-card">
+            <img src="{{baseImgUrl_Producers + producer.logo_path}}" alt="">
+            <h6>
+              {{ producer.name }}
+            </h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

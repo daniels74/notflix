@@ -61,15 +61,17 @@ export class MovieService {
     return this.http.get(combined_Url).pipe(
       map((trailer: any) => {
         // trailer = an Object of two arrays
-        const res = [...trailer.results];
+        this.movieTrailers = [...trailer.results];
 
-        res.forEach((ele) => {
-          this.movieTrailers.push(ele.key);
-        })
+        // this.movieTrailers = res.map((obj) => {
+        //   let movie = [...Object.entries(obj)]
+        //   console.log("A movie: ", movie);
+        //   return movie;
+        // })
 
         this.movieTrailersSubject$.next(this.movieTrailers);
 
-        //console.log("Movie Serivice - trailers: ", this.movieTrailers);
+        console.log("Movie Serivice__trailers: ", this.movieTrailers);
       })
     )
   }

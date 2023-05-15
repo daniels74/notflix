@@ -5,7 +5,7 @@
     class="background-img"
   />
   <div class="main-container">
-    <div class="left-detail" *ngIf="!playerState">
+    <div class="left-detail">
       <div class="movie-img-container">
         <img
           src="{{ this.baseImgUrl_Cover + this.poster_path }}"
@@ -13,9 +13,11 @@
           class="movie-img"
         />
       </div>
-     <div class="button-selections">
-      <button class="btn-style" (click)="toggleYoutube(!playerState)"><h3>Trailer</h3></button>
-     </div>
+      <div class="button-selections">
+        <button class="btn-style" (click)="toggleYoutube(!playerState)">
+          <h3>Trailer</h3>
+        </button>
+      </div>
       <div class="release-date-container">
         <h1>Release Date: {{ releaseDate }}</h1>
       </div>
@@ -25,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="right-detail" *ngIf="!playerState">
+    <div class="right-detail">
       <div class="title-container">
         <div class="opacity-layer"></div>
         <h1 class="title-content">
@@ -50,6 +52,14 @@
     </div>
     <!-- <youtube-player videoId="qj_AZ_FkPtQ"></youtube-player> -->
     <!-- <app-youtube *ngIf="playerState"></app-youtube> -->
-    <youtube-player-example *ngIf="playerState"></youtube-player-example>
+    <!-- <youtube-player-example *ngIf="playerState"></youtube-player-example> -->
+    <div class="youtube-component" *ngIf="playerState">
+      <button class="youtube-btns" (click)="moveLeft()">Left</button>
+      <app-youtube [videoId]="trailerIds[trailerIndex]"></app-youtube>
+      <button class="youtube-btns" (click)="moveRight()">Right</button>
+      <!-- <div *ngFor="let trailer of movieTrailers$ | async">
+        {{trailer}}
+      </div> -->
+    </div>
   </div>
 </div>

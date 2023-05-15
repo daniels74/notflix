@@ -12,6 +12,8 @@ export class MovieDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, public movieDetailsService: MovieService) {}
   myid!: string;
 
+  movieTrailers$!: Observable<string[]>
+
   movieDetails$!: Observable<any[]>;
 
   baseUrl_cover$!: Observable<string>;
@@ -36,7 +38,20 @@ export class MovieDetailsComponent implements OnInit {
 
   producers!: any[];
 
+  apiLoaded: boolean = false;
+
+  playerState: boolean = false;
+
   ngOnInit() {
+    // if (!this.apiLoaded) {
+    //   // This code loads the IFrame Player API code asynchronously, according to the instructions at
+    //   // https://developers.google.com/youtube/iframe_api_reference#Getting_Started
+    //   const tag = document.createElement('script');
+    //   tag.src = 'https://www.youtube.com/iframe_api';
+    //   document.body.appendChild(tag);
+    //   this.apiLoaded = true;
+    // }
+
   //  Set img (base Url/img size) observable
     this.movieDetailsService.configMoviesDB();
 
@@ -89,6 +104,16 @@ export class MovieDetailsComponent implements OnInit {
 
     });
 
+    // fetch Trailers
+    this.movieDetailsService.getTrailers(this.myid).subscribe();
+
+    this.movieTrailers$ = this.movieDetailsService.movieTrailers$;
+
   }
+
+  toggleYoutube(player: boolean){
+    this.playerState = player;
+  }
+  
 
 }

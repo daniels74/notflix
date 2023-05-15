@@ -5,7 +5,7 @@
     class="background-img"
   />
   <div class="main-container">
-    <div class="left-detail">
+    <div class="left-detail" *ngIf="!playerState">
       <div class="movie-img-container">
         <img
           src="{{ this.baseImgUrl_Cover + this.poster_path }}"
@@ -13,7 +13,9 @@
           class="movie-img"
         />
       </div>
-
+     <div class="button-selections">
+      <button class="btn-style" (click)="toggleYoutube(!playerState)"><h3>Trailer</h3></button>
+     </div>
       <div class="release-date-container">
         <h1>Release Date: {{ releaseDate }}</h1>
       </div>
@@ -23,7 +25,7 @@
         </div>
       </div>
     </div>
-    <div class="right-detail">
+    <div class="right-detail" *ngIf="!playerState">
       <div class="title-container">
         <div class="opacity-layer"></div>
         <h1 class="title-content">
@@ -38,7 +40,7 @@
       <div class="producers-container">
         <div class="cards">
           <div *ngFor="let producer of producers" class="producer-card">
-            <img src="{{baseImgUrl_Producers + producer.logo_path}}" alt="">
+            <img src="{{ baseImgUrl_Producers + producer.logo_path }}" alt="" />
             <h6>
               {{ producer.name }}
             </h6>
@@ -46,5 +48,8 @@
         </div>
       </div>
     </div>
+    <!-- <youtube-player videoId="qj_AZ_FkPtQ"></youtube-player> -->
+    <!-- <app-youtube *ngIf="playerState"></app-youtube> -->
+    <youtube-player-example *ngIf="playerState"></youtube-player-example>
   </div>
 </div>

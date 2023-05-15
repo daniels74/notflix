@@ -1,12 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { BaseUrl, movieDetails_BaseUrl, movieDetails_KeyUrl, moviesConfigUrl } from '../app.module';
+import {
+  BaseUrl,
+  movieDetails_BaseUrl,
+  movieDetails_KeyUrl,
+  moviesConfigUrl,
+} from '../app.module';
 import { BehaviorSubject, map } from 'rxjs';
 import { Movie, MoviesAllData } from '../interfaces/movie';
 
 @Injectable()
 export class MovieService {
-
   // Movie List
   private movieList!: Movie[];
   private movieListSubject$ = new BehaviorSubject(this.movieList);
@@ -19,27 +23,56 @@ export class MovieService {
   );
   moviesConfig$ = this.movieConfig_BaseUrlSubject$.asObservable();
 
-private movieConfig_BaseUrl_Cover!: string;
-private movieConfig_BaseUrl_CoverSubject$ = new BehaviorSubject(this.movieConfig_BaseUrl_Cover);
-baseUrl_cover$ = this.movieConfig_BaseUrl_CoverSubject$.asObservable();
+  private movieConfig_BaseUrl_Cover!: string;
+  private movieConfig_BaseUrl_CoverSubject$ = new BehaviorSubject(
+    this.movieConfig_BaseUrl_Cover
+  );
+  baseUrl_cover$ = this.movieConfig_BaseUrl_CoverSubject$.asObservable();
 
-private movieConfig_BaseUrl_Small!: string;
-private movieConfig_BaseUrl_SmallSubject$ = new BehaviorSubject(this.movieConfig_BaseUrl_Small);
-baseUrl_Small$ = this.movieConfig_BaseUrl_SmallSubject$.asObservable();
-
+  private movieConfig_BaseUrl_Small!: string;
+  private movieConfig_BaseUrl_SmallSubject$ = new BehaviorSubject(
+    this.movieConfig_BaseUrl_Small
+  );
+  baseUrl_Small$ = this.movieConfig_BaseUrl_SmallSubject$.asObservable();
 
   // Details
   private movieDetails!: any[];
   private movieDetailsSubject$ = new BehaviorSubject(this.movieDetails);
-  movieDetails$ = this.movieDetailsSubject$.asObservable(); 
+  movieDetails$ = this.movieDetailsSubject$.asObservable();
+
+  // Trailers
+  private movieTrailers!: any[];
+  private movieTrailersSubject$ = new BehaviorSubject(this.movieTrailers);
+  movieTrailers$ = this.movieTrailersSubject$.asObservable();
 
   constructor(
     private http: HttpClient,
     @Inject(BaseUrl) private baseUrl: string,
     @Inject(moviesConfigUrl) private configUrl: string,
     @Inject(movieDetails_BaseUrl) private movieDetails_BaseUrl: string,
-    @Inject(movieDetails_KeyUrl) private movieDetails_KeyUrl: string,
+    @Inject(movieDetails_KeyUrl) private movieDetails_KeyUrl: string
   ) {}
+
+  getTrailers(movieId: string) {
+    const end =
+      '/videos?api_key=2f837be3c800489e1e3094b7fc6a3688&language=en-US';
+    const combined_Url = this.movieDetails_BaseUrl + movieId + end;
+
+    return this.http.get(combined_Url).pipe(
+      map((trailer: any) => {
+        // trailer = an Object of two arrays
+        const res = [...trailer.results];
+
+        res.forEach((ele) => {
+          this.movieTrailers.push(ele.key);
+        })
+
+        this.movieTrailersSubject$.next(this.movieTrailers);
+
+        //console.log("Movie Serivice - trailers: ", this.movieTrailers);
+      })
+    )
+  }
 
   // TODO: getMovieDetails()
   // 1.) Should fetch further details on a movie given a movie ID
@@ -125,18 +158,18 @@ baseUrl_Small$ = this.movieConfig_BaseUrl_SmallSubject$.asObservable();
     // "vote_average": 7.472,
     // "vote_count": 1935
 
-    const combined_Url = this.movieDetails_BaseUrl + movieId + this.movieDetails_KeyUrl;
-       
+    const combined_Url =
+      this.movieDetails_BaseUrl + movieId + this.movieDetails_KeyUrl;
+
     return this.http.get(combined_Url).pipe(
       map((movieDetails: any) => {
         this.movieDetails = [...Object.entries(movieDetails)];
 
-        console.log("MOVIES: ", this.movieDetails);
-        
-        this.movieDetailsSubject$.next(this.movieDetails);
+        console.log('MOVIES: ', this.movieDetails);
 
+        this.movieDetailsSubject$.next(this.movieDetails);
       })
-    )
+    );
   }
 
   // TODO: configMoviesDB()
@@ -158,20 +191,23 @@ baseUrl_Small$ = this.movieConfig_BaseUrl_SmallSubject$.asObservable();
       // "still_sizes": []
       this.movieConfig_BaseUrl =
         config[0][1].base_url + config[0][1].poster_sizes[0];
-      console.log("SIZE: ", config[0][1]);
+      console.log('SIZE: ', config[0][1]);
 
       this.movieConfig_BaseUrlSubject$.next(this.movieConfig_BaseUrl);
 
       this.movieConfig_BaseUrl_Cover =
         config[0][1].base_url + config[0][1].backdrop_sizes[2];
 
-      this.movieConfig_BaseUrl_CoverSubject$.next(this.movieConfig_BaseUrl_Cover);
+      this.movieConfig_BaseUrl_CoverSubject$.next(
+        this.movieConfig_BaseUrl_Cover
+      );
 
       this.movieConfig_BaseUrl_Small =
         config[0][1].base_url + config[0][1].backdrop_sizes[0];
 
-      this.movieConfig_BaseUrl_SmallSubject$.next(this.movieConfig_BaseUrl_Small);
-      
+      this.movieConfig_BaseUrl_SmallSubject$.next(
+        this.movieConfig_BaseUrl_Small
+      );
     });
   }
 

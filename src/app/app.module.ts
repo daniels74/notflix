@@ -16,17 +16,13 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 
 // PAGES
 import { AppComponent } from './app.component';
-// import { HomeComponent } from './pages/home/home.component';
-// import { RegisterComponent } from './pages/register/register.component';
-// import { LoginComponent } from './pages/login/login.component';
-// import { BackgroundComponent } from './components/background/background.component';
+
+// Resources
 import { MovieService } from './services/movie.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
-// import { MatFormField } from '@angular/material/form-field';
-// import { MovieListComponent } from './components/movie-list/movie-list.component';
-// import { MovieItemComponent } from './components/movie-item/movie-item.component';
-// import { LogintwoComponent } from './pages/logintwo/logintwo.component';
+//import { YoutubePlayerExample } from './components/youtube.component';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 
 export const BaseUrl = new InjectionToken<string>('');
@@ -37,25 +33,13 @@ export const movieDetails_KeyUrl = new InjectionToken<string>('');
 @NgModule({
   declarations: [
     AppComponent,
-    // HomeComponent,
     NavbarComponent,
-    // LoginComponent,
-    // RegisterComponent,
-    // BackgroundComponent,
-    // MovieListComponent,
-    // MovieItemComponent,
-    // LogintwoComponent,
   ],
   imports: [
-    BrowserModule,
-    // RouterModule.forRoot([
-    //   { path: 'register', component: RegisterComponent },
-    //   { path: 'login', component: LoginComponent },
-    //   { path: 'logintwo', component: LogintwoComponent },
-    //   { path: '', component: HomeComponent },
-    //   { path: 'list', component: MovieListComponent },
-    // ]),
+    // ! Important 
+    BrowserModule, 
     AppRoutingModule,
+    // UI
     BrowserAnimationsModule,
     MatStepperModule,
     FormsModule,
@@ -65,6 +49,7 @@ export const movieDetails_KeyUrl = new InjectionToken<string>('');
     MatButtonModule,
     MatListModule,
     HttpClientModule,
+    YouTubePlayerModule
   ],
   providers: [
     {provide: MovieService, useClass: MovieService},

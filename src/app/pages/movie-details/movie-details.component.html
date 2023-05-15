@@ -5,7 +5,7 @@
     class="background-img"
   />
   <div class="main-container">
-    <div class="left-detail">
+    <div class="left-detail" *ngIf="!playerState">
       <div class="movie-img-container">
         <img
           src="{{ this.baseImgUrl_Cover + this.poster_path }}"
@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="right-detail">
+    <div class="right-detail" *ngIf="!playerState">
       <div class="title-container">
         <div class="opacity-layer"></div>
         <h1 class="title-content">
@@ -54,9 +54,19 @@
     <!-- <app-youtube *ngIf="playerState"></app-youtube> -->
     <!-- <youtube-player-example *ngIf="playerState"></youtube-player-example> -->
     <div class="youtube-component" *ngIf="playerState">
-      <button class="youtube-btns" (click)="moveLeft()">Left</button>
-      <app-youtube [videoId]="trailerIds[trailerIndex]"></app-youtube>
-      <button class="youtube-btns" (click)="moveRight()">Right</button>
+      <div class="navigation">
+        <button class="youtube-btns" (click)="toggleYoutube(!playerState)">
+          <h3>Close</h3>
+        </button>
+      </div>
+      <div class="youtube-container">
+        <button class="youtube-btns" (click)="moveLeft()"><h3>Left</h3></button>
+        <app-youtube [videoId]="trailerIds[trailerIndex]"></app-youtube>
+        <button class="youtube-btns" (click)="moveRight()">
+          <h3>Right</h3>
+        </button>
+      </div>
+
       <!-- <div *ngFor="let trailer of movieTrailers$ | async">
         {{trailer}}
       </div> -->

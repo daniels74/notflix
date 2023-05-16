@@ -6,8 +6,8 @@ const auth = require("../middleware/auth");
 
 const { News, validate } = require("../models/news");
 
-// router.get('/', auth, async (req, res) => {
-router.get("/:page/:perpage", async (req, res) => {
+router.get('/', auth, admin, error, async (req, res) => {
+// router.get("/:page/:perpage", async (req, res) => {
     const toSkip = (req.params.page - 1) * req.params.perpage;
     const news = await News.find().skip(toSkip).limit(req.params.perpage);
 

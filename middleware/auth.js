@@ -13,6 +13,6 @@ module.exports = function(req, res, next) {
         req._id = decoded._id; // get the user info from the jwt;
         next(); // give the control to callback function (req, res) => {};
     } catch (ex) {
-        res.status(400).send('Invalid token.');
+        res.status(403).send('Invalid token.');
     }
 }

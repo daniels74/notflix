@@ -18,44 +18,54 @@ import {
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MyErrorStateMatcher } from './myerrorstatematcher';
+import { HttpClient } from '@angular/common/http';
+import { LoginService } from 'src/app/services/login.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  // emailFormControl = new FormControl('', [
-  //   Validators.required,
-  //   Validators.email,
-  // ]);
+  // $ VARIABLES
+  form: FormGroup;
+  customErrorStateMatcher = new MyErrorStateMatcher();
+  matcher = new ErrorStateMatcher();
 
-  // passwordFormControl = new FormControl('', [
-  //   Validators.required,
-  //   Validators.email,
-  // ]);
+  // $ CONSTRUCTOR
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    public loginService: LoginService
+  ) {
+    this.form = this.fb.group({
+      userEmail: new FormControl('', [Validators.required, Validators.email]),
 
-  // matcher = new MyErrorStateMatcher();
+      password: new FormControl('', [Validators.required]),
+    });
 
-  get email(): FormControl {
-    return this.form.get('email') as FormControl;
+    this.http
+      .get('http://localhost:443/api/users/getAllUsers')
+      .subscribe((res) => console.log('Users: ', res));
+  }
+  // $ FUNCTIONS
+  get userEmail(): FormControl {
+    return this.form.get('userEmail') as FormControl;
   }
 
   get password(): FormControl {
     return this.form.get('password') as FormControl;
   }
 
-  form: FormGroup;
-
-  customErrorStateMatcher = new MyErrorStateMatcher();
-
-  matcher = new ErrorStateMatcher();
-
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      email: new FormControl('', [Validators.required, Validators.email]),
-
-      password: new FormControl('', [Validators.required]),
-    });
+  onSubmit(formData: any) {
+    // console.log('FORMMM: ', this.form.value);
+    // this.http
+    //   .post('http://localhost:443/api/login', this.form.value)
+    //   .subscribe({
+    //     next: (response) => console.log(response),
+    //     error: (error) => console.log(error),
+    //   });
+    console.log('FORMMM: ', this.form.value.userEmail);
+    this.loginService.loginUser().subscribe();
   }
 }
-

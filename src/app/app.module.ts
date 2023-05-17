@@ -23,12 +23,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 //import { YoutubePlayerExample } from './components/youtube.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import { LoginService } from './services/login.service';
 
 
 export const BaseUrl = new InjectionToken<string>('');
 export const moviesConfigUrl = new InjectionToken<string>('');
 export const movieDetails_BaseUrl = new InjectionToken<string>('');
 export const movieDetails_KeyUrl = new InjectionToken<string>('');
+
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ export const movieDetails_KeyUrl = new InjectionToken<string>('');
   ],
   providers: [
     {provide: MovieService, useClass: MovieService},
+    {provide: LoginService, useClass: LoginService},
     {provide: BaseUrl, useValue: "https://api.themoviedb.org/3/discover/movie?api_key=2f837be3c800489e1e3094b7fc6a3688"},
     {provide: moviesConfigUrl, useValue: "https://api.themoviedb.org/3/configuration?api_key=2f837be3c800489e1e3094b7fc6a3688"},
     {provide: movieDetails_BaseUrl, useValue: "https://api.themoviedb.org/3/movie/"},

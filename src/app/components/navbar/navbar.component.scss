@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
 
 .logo-container {
@@ -23,13 +24,13 @@
 
 .menu-container {
   height: 100%;
-  width: 80%;
+  width: 10%;
+  // background-color: blue;
   
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
-  padding-right: 1rem;
+  justify-content: space-around;
 }
 
 .signup-button {
@@ -40,4 +41,17 @@
     width: 4rem;
 
     border-radius: .1rem;
+}
+
+.username-button {
+  background-color: rgb(150, 40, 40);
+  color: rgb(40, 194, 71);
+  box-shadow: 5px 10px 40px 20px #b10000;
+  border-color: red;
+  height: 2rem;
+  width: auto;
+
+  border-radius: .1rem;
+  border-width: thin;
+  border-style: solid;
 }

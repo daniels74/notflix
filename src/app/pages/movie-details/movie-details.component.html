@@ -50,9 +50,6 @@
         </div>
       </div>
     </div>
-    <!-- <youtube-player videoId="qj_AZ_FkPtQ"></youtube-player> -->
-    <!-- <app-youtube *ngIf="playerState"></app-youtube> -->
-    <!-- <youtube-player-example *ngIf="playerState"></youtube-player-example> -->
     <div class="youtube-component" *ngIf="playerState">
       <div class="navigation">
         <button class="youtube-btns" (click)="toggleYoutube(!playerState)">
@@ -66,10 +63,6 @@
           <h3>Right</h3>
         </button>
       </div>
-
-      <!-- <div *ngFor="let trailer of movieTrailers$ | async">
-        {{trailer}}
-      </div> -->
     </div>
   </div>
 </div>

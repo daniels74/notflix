@@ -120,25 +120,25 @@ export class MovieDetailsComponent implements OnInit {
     this.movieTrailers$.subscribe((eles) => {
       const obj = [...eles];
 
-      console.log('keys::: ', Object.values(obj));
+      //console.log('keys::: ', Object.values(obj));
 
       const vals = Object.values(obj);
 
       const ids = vals.map((element) => {
         let arr = Object.values(element);
-        console.log('ARR: ', arr[3]);
+        //console.log('ARR: ', arr[3]);
 
         return arr[3];
       });
 
       this.trailerIds = ids;
-      console.log('trailerIDS: ', this.trailerIds);
+      //console.log('trailerIDS: ', this.trailerIds);
 
       this.trailerIndex = 0;
 
       this.currentTrailer = this.trailerIds[this.trailerIndex];
 
-      console.log('current IDS: ', this.currentTrailer);
+      //console.log('current IDS: ', this.currentTrailer);
     });
   }
 

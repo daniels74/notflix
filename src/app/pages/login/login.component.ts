@@ -1,14 +1,3 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-login',
-//   templateUrl: './login.component.html',
-//   styleUrls: ['./login.component.scss']
-// })
-// export class LoginComponent {
-
-// }
-
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -19,7 +8,8 @@ import {
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MyErrorStateMatcher } from './myerrorstatematcher';
 import { HttpClient } from '@angular/common/http';
-import { LoginService } from 'src/app/services/login.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -34,9 +24,10 @@ export class LoginComponent {
 
   // $ CONSTRUCTOR
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private http: HttpClient,
-    public loginService: LoginService
+    public authService: AuthService
   ) {
     this.form = this.fb.group({
       userEmail: new FormControl('', [Validators.required, Validators.email]),
@@ -66,6 +57,6 @@ export class LoginComponent {
     //     error: (error) => console.log(error),
     //   });
     console.log('FORMMM: ', this.form.value.userEmail);
-    this.loginService.loginUser().subscribe();
+    this.authService.loginUser().subscribe();
   }
 }

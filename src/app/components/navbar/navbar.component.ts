@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { LoginService } from 'src/app/services/login.service';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  constructor(private router: Router, public loginService: LoginService) {}
+  constructor(private router: Router, public authService: AuthService) {}
   
   username$!: Observable<string>;
 
@@ -17,9 +17,9 @@ export class NavbarComponent implements OnInit {
   isAuth: boolean = false;
 
   ngOnInit() {
-    this.username$ = this.loginService.username$; 
+    this.username$ = this.authService.username$; 
     
-    this.authState$ = this.loginService.authState$;
+    this.authState$ = this.authService.authState$;
   
     this.authState$.subscribe((state) => this.isAuth = state);
   }
@@ -27,6 +27,6 @@ export class NavbarComponent implements OnInit {
 
   logout(){
     this.isAuth = false;
-    this.loginService.logout();
+    this.authService.logout();
   }
 }

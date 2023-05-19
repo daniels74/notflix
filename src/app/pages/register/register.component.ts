@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -42,7 +43,7 @@ export class RegisterComponent {
     return this.secondFormGroup.get('tmdb_key') as FormControl;
   }
   
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder, private registerService : AuthService) {}
 
   ngOnInit() {
 
@@ -69,7 +70,15 @@ export class RegisterComponent {
   
   submit() {
     console.log(this.firstFormGroup.value);
-
     console.log(this.secondFormGroup.value);
+
+    // let fullForm = {
+    //   "email" : this.firstFormGroup.value.email,
+    //   "password" : this.firstFormGroup.value.password,
+    //   "username" : this.secondFormGroup.value.username,
+    //   "tmbd_key" : this.secondFormGroup.value.tmbd_key
+    // }
+
+    //this.registerService.registerUser(fullForm).subscribe();
   }
 }

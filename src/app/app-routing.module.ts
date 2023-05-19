@@ -1,6 +1,6 @@
 import { NgModule, OnInit } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginService } from './services/login.service';
+import { AuthService } from './services/auth.service';
 import { Observable } from 'rxjs';
 import { ROUTES } from '@angular/router';
 
@@ -17,9 +17,10 @@ import { ROUTES } from '@angular/router';
 //   exports: [RouterModule],
 // })
 
-function routesFactory(loginService: LoginService) {
+function routesFactory(authService: AuthService) {
+  
   // ! Auth does not update when signing in through MovieList path. 
-  let auth$ = loginService.authState$;
+  let auth$ = authService.authState$;
   let auth = false;
   auth$.subscribe((state) => (auth = state));
   console.log('AUTH: ', auth);
@@ -69,7 +70,7 @@ function routesFactory(loginService: LoginService) {
       provide: ROUTES,
       useFactory: routesFactory,
       multi: true,
-      deps: [LoginService],
+      deps: [AuthService],
     },
   ],
   exports: [RouterModule],

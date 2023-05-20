@@ -25,7 +25,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { AuthService } from './services/auth.service';
 
-
 export const BaseUrl = new InjectionToken<string>('');
 export const moviesConfigUrl = new InjectionToken<string>('');
 export const movieDetails_BaseUrl = new InjectionToken<string>('');
@@ -51,7 +50,7 @@ export const movieDetails_KeyUrl = new InjectionToken<string>('');
     MatButtonModule,
     MatListModule,
     HttpClientModule,
-    YouTubePlayerModule
+    YouTubePlayerModule,
   ],
   providers: [
     {provide: MovieService, useClass: MovieService},

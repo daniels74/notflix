@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { MovieDetailsRoutingModule } from './movie-details-routing.module';
+import { RouterModule, Routes } from '@angular/router';
 import { MovieDetailsComponent } from './movie-details.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { YoutubeComponent } from 'src/app/components/youtube/youtube.component';
+import { GlowDirectiveModule } from 'src/app/glow-directive/glow-directive.module';
 
+const routes: Routes = [{ path: '', component: MovieDetailsComponent }];
 
 @NgModule({
   declarations: [MovieDetailsComponent, YoutubeComponent],
-  imports: [CommonModule, MovieDetailsRoutingModule, YouTubePlayerModule],
+  imports: [CommonModule, YouTubePlayerModule, GlowDirectiveModule, RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class MovieDetailsModule {}
-

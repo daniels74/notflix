@@ -20,7 +20,7 @@ export class MovieListComponent implements OnInit {
     this.movieListService.configMoviesDB();
 
     // Get img config url observable
-    this.moviesConfig$ = this.movieListService.moviesConfig$;
+    this.moviesConfig$ = this.movieListService.baseUrl_cover$;
 
     this.moviesConfig$.forEach((item) => {
       console.log("Item: ", item);

@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from 'src/app/SharedModule.module';
+import { RouterModule, Routes } from '@angular/router';
 
-import { HomeRoutingModule } from './home-routing.module';
+// $ Components
 import { HomeComponent } from './home.component';
 
-import { SharedModule } from 'src/app/SharedModule.module';
+
+const routes: Routes = [{ path: '', component: HomeComponent }];
 
 @NgModule({
   declarations: [
@@ -12,8 +15,9 @@ import { SharedModule } from 'src/app/SharedModule.module';
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule,
-    SharedModule
-  ]
+    SharedModule,
+    RouterModule.forChild(routes)
+  ],
+  exports: [RouterModule]
 })
 export class HomeModule { }

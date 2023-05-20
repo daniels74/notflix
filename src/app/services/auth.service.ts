@@ -53,4 +53,9 @@ export class AuthService {
     this.authState = false;
     this.authStateSubject$.next(this.authState);
   }
+
+  // $ Get current auth state
+  get authenticationState() {
+    return this.authStateSubject$.value;
+  }
 }

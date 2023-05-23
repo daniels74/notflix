@@ -1,6 +1,6 @@
 <div class="movie-detail-page">
   <img
-    src="{{ this.baseImgUrl_Cover + this.backdrop_path }}"
+    src="{{ this.baseImgUrl_Cover + this.movie.backdrop_path }}"
     alt="background"
     class="background-img"
   />
@@ -8,7 +8,7 @@
     <div class="left-detail" *ngIf="!playerState">
       <div class="movie-img-container">
         <img
-          src="{{ this.baseImgUrl_Cover + this.poster_path }}"
+          src="{{ baseImgUrl_Cover + this.movie.poster_path }}"
           alt="background"
           class="movie-img"
         />
@@ -19,7 +19,7 @@
         </button>
       </div>
       <div class="release-date-container">
-        <h1>Release Date: {{ releaseDate }}</h1>
+        <h1>Release Date: {{ this.movie.release_date }}</h1>
       </div>
       <div class="genres-container">
         <div *ngFor="let genere of genres">
@@ -31,12 +31,12 @@
       <div class="title-container">
         <div class="opacity-layer"></div>
         <h1 class="title-content">
-          {{ this.movieTitle }}
+          {{ this.movie.original_title }}
         </h1>
       </div>
       <div class="overview-container">
         <h3>
-          {{ overview }}
+          {{ this.movie.overview}}
         </h3>
       </div>
       <div class="producers-container">

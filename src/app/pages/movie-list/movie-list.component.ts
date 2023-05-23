@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MovieService } from 'src/app/services/movie.service';
 
@@ -9,32 +10,21 @@ import { MovieService } from 'src/app/services/movie.service';
 })
 export class MovieListComponent implements OnInit {
   movies$!: Observable<any[]>;
-  moviesConfig$!: Observable<string>;
-
   baseImgUrl!: any;
 
-  constructor(public movieListService: MovieService) {}
+  constructor(
+    public movieListService: MovieService,
+    private route: ActivatedRoute
+  ) {}
   ngOnInit() {
-    
-    // Set img (base Url/img size) observable
-    this.movieListService.configMoviesDB();
+    const dataRes = this.route.snapshot.data['urls'];
 
-    // Get img config url observable
-    this.moviesConfig$ = this.movieListService.baseUrl_cover$;
-    this.moviesConfig$.forEach((item) => {
-      console.log("Item: ", item);
-      this.baseImgUrl = item;
-    })
-    //?const urls = [...Object.values(this.movieListService.allUrls)];
-    //?this.baseImgUrl = urls[1];
-    //?console.log("DNENEKNK", urls[1]);
-    // console.log('Movie List: ', this.movieListService.getMovieList());
+    const imgSettings = dataRes.images;
+
+    this.baseImgUrl = imgSettings.base_url + imgSettings.backdrop_sizes[2];
+
     this.movieListService.getMovieList().subscribe();
-    this.movies$ = this.movieListService.movies$;
-    // console.log('In movieList this.movies$: ', this.movies$);
 
-    // const d = [...Object.values(this.movieListService.obsTrialValues)];
-    
-    // console.log("OBJ TRIAL:::", d[1]);
+    this.movies$ = this.movieListService.movies$;
   }
 }

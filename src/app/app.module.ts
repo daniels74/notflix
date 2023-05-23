@@ -24,7 +24,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 //import { YoutubePlayerExample } from './components/youtube.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { AuthService } from './services/auth.service';
-import { MyResolver } from './movie-details.resolver';
+import { MyResolver } from './components/resolvers/movie-details.resolver';
 
 export const BaseUrl = new InjectionToken<string>('');
 export const moviesConfigUrl = new InjectionToken<string>('');

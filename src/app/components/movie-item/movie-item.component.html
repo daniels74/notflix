@@ -1,9 +1,9 @@
 <div class="card">
   <div class="card-content" gloww>
-    <div class="img-container">
+    <div class="img-container" *ngIf="!loadingState">
       <img class="movie-img" src="{{ baseImgUrl + movieImage }}" alt="" />
     </div>
-    <div class="movie-info">
+    <div class="movie-info" *ngIf="!loadingState">
       <div class="title">
         <h3>
           {{
@@ -22,8 +22,12 @@
         </div>
       </div>
       <div class="more-options">
-        <button gloww class="more-btn" routerLink="/MovieDetails/{{movieId}}"><h3>View Info</h3></button>
+        <!-- <button gloww class="more-btn" routerLink="/MovieDetails/{{movieId}}"><h3>View Info</h3></button> -->
+        <button gloww class="more-btn" (click)="showMore(movieId)"><h3>View Info</h3></button>
       </div>
+    </div>
+    <div class="spinner" *ngIf="loadingState">
+      <mat-spinner aria-label></mat-spinner>
     </div>
   </div>
 </div>

@@ -8,7 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MovieItemComponent } from 'src/app/components/movie-item/movie-item.component';
 import { MovieListComponent } from './movie-list.component';
 import { GlowDirectiveModule } from 'src/app/glow-directive/glow-directive.module';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 const routes: Routes = [
   { path: '', canActivate: [MovieListGuard], component: MovieListComponent },
 ];
@@ -20,6 +20,7 @@ const routes: Routes = [
     // MovieListRoutingModule,
     SharedModule,
     GlowDirectiveModule,
+    MatProgressSpinnerModule,
     RouterModule.forChild(routes),
   ],
   exports: [RouterModule],

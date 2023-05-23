@@ -13,133 +13,78 @@ export class MovieDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     public movieDetailsService: MovieService
   ) {}
-  myid!: string;
-
-  movieTrailers$!: Observable<string[]>;
-
-  movieDetails$!: Observable<any[]>;
-
-  baseUrl_cover$!: Observable<string>;
-
-  producersImg_Config$!: Observable<string>;
-
+  // ? URLs  
   baseImgUrl_Producers!: string;
-
   baseImgUrl_Cover!: string;
 
+  // ? Movie Details
   movieTitle!: string;
-
   releaseDate!: string;
-
   genres!: any;
-
   overview!: string;
-
   backdrop_path!: string;
-
   poster_path!: string;
-
   producers!: any[];
-
-  apiLoaded: boolean = false;
-
+  
+  // ? Youtube
   playerState: boolean = false;
-
   trailerIds!: any;
-
   currentTrailer!: string;
-
   trailerIndex!: number;
 
-  g!: any[];
+  // ? Data from resolver
+  allData!: any[];
 
   ngOnInit() {
-    // if (!this.apiLoaded) {
-    //   // This code loads the IFrame Player API code asynchronously, according to the instructions at
-    //   // https://developers.google.com/youtube/iframe_api_reference#Getting_Started
-    //   const tag = document.createElement('script');
-    //   tag.src = 'https://www.youtube.com/iframe_api';
-    //   document.body.appendChild(tag);
-    //   this.apiLoaded = true;
-    // }
 
-    //  Set img (base Url/img size) observable
-    this.movieDetailsService.configMoviesDB();
-
-    //  Get img config url observable
-    this.baseUrl_cover$ = this.movieDetailsService.baseUrl_cover$;
-
-    this.baseUrl_cover$.forEach((item) => {
-      console.log('Item: ', item);
-      this.baseImgUrl_Cover = item;
+    this.route.data.subscribe((data: any) => {
+      console.log('Resolver::: ', data.myData);
+      this.allData = [...Object.entries(data.myData)];
     });
 
-    this.producersImg_Config$ = this.movieDetailsService.baseUrl_Small$;
+    // $ Set Img congifgs
 
-    this.producersImg_Config$.forEach((item) => {
-      console.log('Item: ', item);
-      this.baseImgUrl_Producers = item;
+    const coverUrl = this.allData[0][1][2];
+
+    this.baseImgUrl_Cover = coverUrl[1];
+
+    const smallUrl = this.allData[0][1][1];
+
+    this.baseImgUrl_Producers = smallUrl[1];
+
+    // $ Set movie detials
+
+    const movie_details = this.movieDetailsService.movieDetailsData;
+
+    this.movieTitle = movie_details[9][1];
+
+    this.releaseDate = movie_details[15][1];
+
+    this.genres = [...Object.values(movie_details[4][1])];
+
+    this.backdrop_path = movie_details[1][1];
+
+    this.poster_path = movie_details[12][1];
+
+    this.overview = movie_details[10][1];
+
+    this.producers = [...movie_details[13][1]];
+
+    // $ Set Trailers data
+
+    const trailerss = this.movieDetailsService.movieTrailersData;
+
+    const ids = trailerss.map((element: any) => {
+      let arr = Object.values(element);
+
+      return arr[3];
     });
 
-    // Get movie ID from params
-    this.route.params.subscribe((params) => {
-      this.myid = params['id'];
-      console.log('YO: ', this.myid);
-    });
+    this.trailerIds = ids;
 
-    // fetch the movie data
-    this.movieDetailsService.getMovieDetails(this.myid).subscribe();
+    this.trailerIndex = 0;
 
-    this.movieDetails$ = this.movieDetailsService.movieDetails$;
-
-    this.movieDetails$.subscribe((ele) => {
-      this.movieTitle = ele[9][1];
-
-      this.releaseDate = ele[15][1];
-
-      this.genres = [...Object.values(ele[4][1])];
-
-      console.log('Genres: ', this.genres);
-
-      this.backdrop_path = ele[1][1];
-
-      this.poster_path = ele[12][1];
-
-      this.overview = ele[10][1];
-
-      //is array of objects
-      console.log('Producers: ', [...ele[13][1]]);
-      this.producers = [...ele[13][1]];
-    });
-
-    // fetch Trailers
-    this.movieDetailsService.getTrailers(this.myid).subscribe();
-
-    this.movieTrailers$ = this.movieDetailsService.movieTrailers$;
-
-    this.movieTrailers$.subscribe((eles) => {
-      const obj = [...eles];
-
-      //console.log('keys::: ', Object.values(obj));
-
-      const vals = Object.values(obj);
-
-      const ids = vals.map((element) => {
-        let arr = Object.values(element);
-        //console.log('ARR: ', arr[3]);
-
-        return arr[3];
-      });
-
-      this.trailerIds = ids;
-      //console.log('trailerIDS: ', this.trailerIds);
-
-      this.trailerIndex = 0;
-
-      this.currentTrailer = this.trailerIds[this.trailerIndex];
-
-      //console.log('current IDS: ', this.currentTrailer);
-    });
+    this.currentTrailer = this.trailerIds[this.trailerIndex];
   }
 
   toggleYoutube(player: boolean) {
@@ -147,9 +92,7 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   moveLeft() {
-    if (
-      this.trailerIndex === 0
-    ) {
+    if (this.trailerIndex === 0) {
       this.trailerIndex = this.trailerIds.length - 1;
       console.log(this.trailerIndex);
     } else {
@@ -167,5 +110,4 @@ export class MovieDetailsComponent implements OnInit {
       console.log(this.trailerIndex);
     }
   }
-
 }

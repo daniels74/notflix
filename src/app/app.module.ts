@@ -24,6 +24,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 //import { YoutubePlayerExample } from './components/youtube.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { AuthService } from './services/auth.service';
+import { MyResolver } from './movie-details.resolver';
 
 export const BaseUrl = new InjectionToken<string>('');
 export const moviesConfigUrl = new InjectionToken<string>('');
@@ -53,6 +54,7 @@ export const movieDetails_KeyUrl = new InjectionToken<string>('');
     YouTubePlayerModule,
   ],
   providers: [
+    {provide: MyResolver, useClass: MyResolver},
     {provide: MovieService, useClass: MovieService},
     {provide: AuthService, useClass: AuthService},
     {provide: BaseUrl, useValue: "https://api.themoviedb.org/3/discover/movie?api_key=2f837be3c800489e1e3094b7fc6a3688"},

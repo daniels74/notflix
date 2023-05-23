@@ -16,34 +16,45 @@ export class MovieService {
   private movieListSubject$ = new BehaviorSubject(this.movieList);
   movies$ = this.movieListSubject$.asObservable();
 
-  // URL
+  // $ URL
+  private Urls!: {};
+  private UrlsSubject$ = new BehaviorSubject(this.Urls);
+  allUrls$ = this.UrlsSubject$.asObservable();
+  //!_________________________
   private movieConfig_BaseUrl!: string;
   private movieConfig_BaseUrlSubject$ = new BehaviorSubject(
     this.movieConfig_BaseUrl
   );
   moviesConfig$ = this.movieConfig_BaseUrlSubject$.asObservable();
 
+  //!_________________________
   private movieConfig_BaseUrl_Cover!: string;
   private movieConfig_BaseUrl_CoverSubject$ = new BehaviorSubject(
     this.movieConfig_BaseUrl_Cover
   );
   baseUrl_cover$ = this.movieConfig_BaseUrl_CoverSubject$.asObservable();
 
+  //!_________________________
   private movieConfig_BaseUrl_Small!: string;
   private movieConfig_BaseUrl_SmallSubject$ = new BehaviorSubject(
     this.movieConfig_BaseUrl_Small
   );
   baseUrl_Small$ = this.movieConfig_BaseUrl_SmallSubject$.asObservable();
 
-  // Details
+  // $ Details
   private movieDetails!: any[];
   private movieDetailsSubject$ = new BehaviorSubject(this.movieDetails);
   movieDetails$ = this.movieDetailsSubject$.asObservable();
 
-  // Trailers
+  // $ Trailers
   private movieTrailers!: any[];
   private movieTrailersSubject$ = new BehaviorSubject(this.movieTrailers);
   movieTrailers$ = this.movieTrailersSubject$.asObservable();
+
+  //Observable trials
+  // private obsTrial!: {};
+  // private obsTrialSubject$ = new BehaviorSubject(this.obsTrial);
+  // obsTrial$ = this.obsTrialSubject$.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -63,21 +74,16 @@ export class MovieService {
         // trailer = an Object of two arrays
         this.movieTrailers = [...trailer.results];
 
-        // this.movieTrailers = res.map((obj) => {
-        //   let movie = [...Object.entries(obj)]
-        //   console.log("A movie: ", movie);
-        //   return movie;
-        // })
-
         this.movieTrailersSubject$.next(this.movieTrailers);
 
-        console.log("Movie Serivice__trailers: ", this.movieTrailers);
+        console.log('--MovieSerivice--getTrailers(): ', this.movieTrailers);
       })
-    )
+    );
   }
 
   // TODO: getMovieDetails()
   // 1.) Should fetch further details on a movie given a movie ID
+  // $ Sets movie details object.
   getMovieDetails(movieId: string) {
     // "adult": false,
     // "backdrop_path": "/iJQIbOPm81fPEGKt5BPuZmfnA54.jpg",
@@ -167,19 +173,21 @@ export class MovieService {
       map((movieDetails: any) => {
         this.movieDetails = [...Object.entries(movieDetails)];
 
-        console.log('MOVIES: ', this.movieDetails);
-
         this.movieDetailsSubject$.next(this.movieDetails);
+
+        console.log('--MovieSerivice--getMovieDetails(): ', this.movieDetails);
       })
     );
   }
 
   // TODO: configMoviesDB()
-  // 1.) should find a base Url ,
-  // 2.) find an image size,
-  // 3.) combine into one url for later concat with movie img
+  // $1.) should find a base Url ,
+  // $2.) find an image size,
+  // $3.) combine into one url for later concat with movie img
   configMoviesDB() {
     this.http.get(this.configUrl).subscribe((configRes) => {
+
+      // ? Object value access
       //configRes.images
       //configRes.change_keys
       const config = [...Object.entries(configRes)];
@@ -191,30 +199,40 @@ export class MovieService {
       // "poster_sizes": [],
       // "profile_sizes": [],
       // "still_sizes": []
-      this.movieConfig_BaseUrl =
-        config[0][1].base_url + config[0][1].poster_sizes[0];
-      console.log('SIZE: ', config[0][1]);
+      const settings = config[0][1]; // ! .images
+
+      this.movieConfig_BaseUrl = settings.base_url + settings.poster_sizes[0];
 
       this.movieConfig_BaseUrlSubject$.next(this.movieConfig_BaseUrl);
 
       this.movieConfig_BaseUrl_Cover =
-        config[0][1].base_url + config[0][1].backdrop_sizes[2];
+        settings.base_url + settings.backdrop_sizes[2];
 
       this.movieConfig_BaseUrl_CoverSubject$.next(
         this.movieConfig_BaseUrl_Cover
       );
 
       this.movieConfig_BaseUrl_Small =
-        config[0][1].base_url + config[0][1].backdrop_sizes[0];
+        settings.base_url + settings.backdrop_sizes[0];
 
       this.movieConfig_BaseUrl_SmallSubject$.next(
         this.movieConfig_BaseUrl_Small
       );
+
+      //$--------------------------------------------------------
+
+      this.Urls = {
+        poster_zero: this.movieConfig_BaseUrl,
+        backdrop_zero: this.movieConfig_BaseUrl_Small,
+        backdrop_two: this.movieConfig_BaseUrl_Cover
+      };
+
+      this.UrlsSubject$.next(this.Urls);
     });
   }
 
   // TODO: getMovieList()
-  // Obtain a list of movies and set that list in this service
+  // $ Obtain a list of movies and set that list in this service
   getMovieList() {
     return this.http.get(this.baseUrl).pipe(
       map((MovieRes: any) => {
@@ -223,7 +241,21 @@ export class MovieService {
         this.movieList = [...movieData];
 
         this.movieListSubject$.next(this.movieList);
+
+        console.log('--MovieSerivice--getMovieList(): ', this.movieList);
       })
     );
+  }
+
+  get allUrls(){
+    return this.UrlsSubject$.value;
+  }
+  
+  get movieDetailsData() {
+      return this.movieDetailsSubject$.value;
+    }
+
+  get movieTrailersData() {
+    return this.movieTrailersSubject$.value;
   }
 }

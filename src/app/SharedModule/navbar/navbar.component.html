@@ -1,0 +1,11 @@
+<div class="navbar-container">
+  <div class="logo-container">
+    <a routerLink=""><h1>Notflix</h1></a>
+  </div>
+  <div class="menu-container">
+    <button *ngIf="isAuth" class="username-button" routerLink="/MovieList">{{userName}}</button>
+    <!-- <button routerLink="/MovieList" class="signup-button">List</button> -->
+    <button *ngIf="!isAuth" routerLink="login" class="signup-button">Sign In</button>
+    <button *ngIf="isAuth" (click)="logout()" class="signup-button">Log Out</button>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+.card {
+    height: 50vh;
+    width: 100%;
+    //background-color: red;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-content {
+    height: 90%;
+    width: 75%;
+    background-color: black;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: .5rem;
+    border-width: thin;
+    border-style: solid;
+    border-color: #890404;
+}
+
+.img-container {
+    position: relative;
+    height: 70%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.movie-img {
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+}
+
+.movie-info {
+    position: relative;
+    height: 30%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.title {
+    position: relative;
+    height: 25%;
+    width: 100%;
+    //background-color: red;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.date-rate {
+    position: relative;
+    height: 30%;
+    width: 100%;
+    //background-color: blue;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.more-options {
+    position: relative;
+    height: 45%;
+    width: 100%;
+    //background-color: gold;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.more-btn {
+    height: 60%;
+    width: 50%;
+    background-color: red;
+
+    border-style: none;
+    border-radius: .5rem;
+}
+
+.spinner {
+    position: relative;
+    color: blue;
+    background-color: red;
+}

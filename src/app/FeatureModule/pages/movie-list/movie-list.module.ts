@@ -19,6 +19,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [MovieListComponent, MovieItemComponent],
+  // declarations: [MovieListComponent],
   providers: [MovieListGuard],
   imports: [
     CommonModule,

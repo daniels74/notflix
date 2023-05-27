@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit {
   
   user$!: Observable<any>;
 
-  userName!: string;
+  userName!: any;
 
   authState$!: Observable<boolean>;
 
@@ -22,7 +22,9 @@ export class NavbarComponent implements OnInit {
 
     this.authService.user$.subscribe((user) => {
       this.userName = user.userName;
+      console.log("USERNAME NAV: ", this.userName);
     })
+    
     
     this.authState$ = this.authService.authState$;
   

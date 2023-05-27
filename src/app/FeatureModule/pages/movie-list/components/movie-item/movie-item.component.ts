@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/CoreModule/services/auth.service';
   templateUrl: './movie-item.component.html',
   styleUrls: ['./movie-item.component.scss'],
 })
-export class MovieItemComponent implements OnInit{
+export class MovieItemComponent implements OnInit {
   @Input() movieImage!: string;
 
   @Input() movieTitle!: string;
@@ -20,7 +20,6 @@ export class MovieItemComponent implements OnInit{
 
   @Input() movieId!: string;
 
-
   data!: any;
 
   loadingState = false;
@@ -32,27 +31,35 @@ export class MovieItemComponent implements OnInit{
   ) {}
   ngOnInit() {
     // this.data = JSON.parse(JSON.stringify(this.movieData));
-    
     // console.log("DATATAAA: " , this.data.title);
   }
 
   showMore(id: string) {
-    this.authService.user$.subscribe((user: any) => {
-      if (user.userRole === 'admin') {
-        this.spinner.show('primary');
+    // this.authService.user$.subscribe((user: any) => {
+    //   if (user.userRole === 'admin') {
+    //     this.spinner.show('primary');
 
-        this.loadingState = true;
+    //     this.loadingState = true;
 
-        setTimeout(() => {
-          this.router.navigate(['/MovieDetails', id]);
+    //     setTimeout(() => {
+    //       this.router.navigate(['/MovieDetails', id]);
 
-          this.spinner.hide();
-        }, 1000);
-      } else {
-        console.log('Authorization Denied: ', user.userRole);
+    //       this.spinner.hide();
+    //     }, 1000);
+    //   } else {
+    //     console.log('Authorization Denied: ', user.userRole);
 
-        this.router.navigate(['/register']);
-      }
-    });
+    //     this.router.navigate(['/register']);
+    //   }
+    // });
+    this.spinner.show('primary');
+
+    this.loadingState = true;
+
+    setTimeout(() => {
+      this.router.navigate(['/MovieDetails', id]);
+
+      this.spinner.hide();
+    }, 1000);
   }
 }

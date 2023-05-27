@@ -71,18 +71,35 @@ export class RegisterComponent {
   }
   
   submit() {
-    console.log(this.firstFormGroup.value);
-    console.log(this.secondFormGroup.value);
 
-    
+    if(this.authState === true) {
+      const currentRole = this.registerService.userRole;
+      if (this.selectedIndex === 2 ) {
+        if(currentRole === 'admin' || currentRole === 'super') {
+          console.log("User has max role !");
+        }
+        else {
+          this.registerService.updateUserRole_Manualy("Premium");
+        }
+      }
+      else if (this.selectedIndex === 1) {
+        console.log("No role effect");
+        
+      }
+    }
+    else {
+      console.log(this.firstFormGroup.value);
+      console.log(this.secondFormGroup.value);
+  
+      let fullForm = {
+        "email" : this.firstFormGroup.value.email,
+        "password" : this.firstFormGroup.value.password,
+        "username" : this.secondFormGroup.value.username,
+        "tmbd_key" : this.secondFormGroup.value.tmbd_key
+      }
+  
+      const regRes = this.registerService.registerUser(fullForm);      
+    }
 
-    // let fullForm = {
-    //   "email" : this.firstFormGroup.value.email,
-    //   "password" : this.firstFormGroup.value.password,
-    //   "username" : this.secondFormGroup.value.username,
-    //   "tmbd_key" : this.secondFormGroup.value.tmbd_key
-    // }
-
-    //this.registerService.registerUser(fullForm).subscribe();
   }
 }

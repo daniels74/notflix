@@ -34,4 +34,8 @@ export class MovieService {
   get movieListData() {
     return this.movieListSubject$.value;
   }
+
+  allusers() {
+    return this.http.get('http://localhost:443/api/users/getAllUsers');
+  }
 }

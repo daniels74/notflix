@@ -69,14 +69,19 @@ export class LoginComponent {
     // phone: 1234567890
     // userEmail: "group.callbackcats@gmail.com"
     // userName: "CallbackCats"userRole
-    const s = JSON.stringify(response); // ? turn into string
-    const o = JSON.parse(s); // ? turn into object for access to names
+  
+    const userString = JSON.stringify(response); // ? turn into string
+    const userObject = JSON.parse(userString); // ? turn into object for access to names
       
-    const userToken = o.bearerToken;
+    const userToken = userObject.bearerToken;
+
+    // // ! Set userName
+    // this.authService.userNamee(userObject.userName);
+    // console.log('userName: ', userObject.userName);
 
     // ! Store token in local storage
     // ! Get user authorizations from token
-    this.authService.tokenPermissions(userToken);
+    this.authService.tokenPermissions(userToken, userObject.userName);
     console.log("User Token: ", userToken);
     this.authService.user$.subscribe((user) => { console.log("UUUSSER: ", user)});
     });

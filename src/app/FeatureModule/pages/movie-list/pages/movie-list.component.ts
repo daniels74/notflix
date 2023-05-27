@@ -18,10 +18,10 @@ export class MovieListComponent implements OnInit {
   ) {}
   ngOnInit() {
 
-    console.log("ALL USERS: ", this.movieListService.allusers());
-    const allUsers = this.movieListService.allusers();
+    // console.log("ALL USERS: ", this.movieListService.allusers());
+    // const allUsers = this.movieListService.allusers();
 
-    allUsers.subscribe((users: any)=> console.log(users));
+    // allUsers.subscribe((users: any)=> console.log(users));
 
     const dataRes = this.route.snapshot.data['urls'];
 

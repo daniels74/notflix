@@ -6,7 +6,6 @@ import { Movie } from '../../interfaces/movie';
 
 @Injectable()
 export class MovieService {
-  // Movie List
   private movieList!: Movie[];
   private movieListSubject$ = new BehaviorSubject(this.movieList);
   movies$ = this.movieListSubject$.asObservable();

@@ -7,7 +7,6 @@ import { AuthService } from '../CoreModule/services/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'notflix';
 
   selectedPlanIndex: number;
 

@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { AuthService } from 'src/app/CoreModule/services/auth.service';
 @Component({
   selector: 'app-movie-item',
   templateUrl: './movie-item.component.html',
@@ -20,12 +19,9 @@ export class MovieItemComponent implements OnInit {
 
   @Input() movieId!: string;
 
-  data!: any;
-
   loadingState = false;
 
   constructor(
-    private authService: AuthService,
     private router: Router,
     public spinner: NgxSpinnerService
   ) {}
@@ -35,23 +31,7 @@ export class MovieItemComponent implements OnInit {
   }
 
   showMore(id: string) {
-    // this.authService.user$.subscribe((user: any) => {
-    //   if (user.userRole === 'admin') {
-    //     this.spinner.show('primary');
-
-    //     this.loadingState = true;
-
-    //     setTimeout(() => {
-    //       this.router.navigate(['/MovieDetails', id]);
-
-    //       this.spinner.hide();
-    //     }, 1000);
-    //   } else {
-    //     console.log('Authorization Denied: ', user.userRole);
-
-    //     this.router.navigate(['/register']);
-    //   }
-    // });
+  
     this.spinner.show('primary');
 
     this.loadingState = true;

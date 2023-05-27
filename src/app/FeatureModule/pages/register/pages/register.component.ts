@@ -71,7 +71,7 @@ export class RegisterComponent {
   }
   
   submit() {
-
+// Update user role
     if(this.authState === true) {
       const currentRole = this.registerService.userRole;
       if (this.selectedIndex === 2 ) {
@@ -79,7 +79,7 @@ export class RegisterComponent {
           console.log("User has max role !");
         }
         else {
-          this.registerService.updateUserRole_Manualy("Premium");
+          this.registerService.updateUserRole_Manualy("admin");
         }
       }
       else if (this.selectedIndex === 1) {
@@ -87,6 +87,7 @@ export class RegisterComponent {
         
       }
     }
+    // Submit full form
     else {
       console.log(this.firstFormGroup.value);
       console.log(this.secondFormGroup.value);

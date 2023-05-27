@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/CoreModule/services/auth.service';
 @Component({
@@ -8,8 +7,8 @@ import { AuthService } from 'src/app/CoreModule/services/auth.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  constructor(private router: Router, public authService: AuthService) {}
-  
+  constructor(public authService: AuthService) {}
+
   user$!: Observable<any>;
 
   userName!: any;
@@ -19,21 +18,16 @@ export class NavbarComponent implements OnInit {
   isAuth: boolean = false;
 
   ngOnInit() {
-
+    // Set usernme for nav btn
     this.authService.user$.subscribe((user) => {
       this.userName = user.userName;
-      console.log("USERNAME NAV: ", this.userName);
-    })
-    
-    
-    this.authState$ = this.authService.authState$;
-  
-    this.authState$.subscribe((state) => this.isAuth = state);
+    });
+
+    // Set auth State
+    this.authService.authState$.subscribe((state) => (this.isAuth = state));
   }
 
-
-  logout(){
-    this.authService.logout();
+  logout() {
     this.isAuth = false;
     this.authService.logout();
   }

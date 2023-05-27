@@ -22,13 +22,10 @@
         </div>
       </div>
       <div class="more-options">
-        <!-- <button gloww class="more-btn" routerLink="/MovieDetails/{{movieId}}"><h3>View Info</h3></button> -->
         <button gloww class="more-btn" (click)="showMore(movieId)"><h3>View Info</h3></button>
       </div>
     </div>
     <div class="spinner" *ngIf="loadingState">
-      <!-- <mat-spinner aria-label="spinner" color="warn"></mat-spinner> -->
-      <!-- <ngx-spinner size="large" color="#890404" type="ball-scale-multiple" [fullScreen]="false"></ngx-spinner> -->
       <ngx-spinner size="large" template="<img src='../../../../../../assets/Spin-0.9s-201px.svg'>" [fullScreen]="false"></ngx-spinner>
     </div>
   </div>

@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class AuthService {
+  
   private user!: {};
   private userSubject$ = new BehaviorSubject<any>(this.user);
   user$ = this.userSubject$.asObservable();
@@ -13,10 +14,7 @@ export class AuthService {
   private authState: boolean = false;
   private authStateSubject$ = new BehaviorSubject(this.authState);
   authState$ = this.authStateSubject$.asObservable();
-
-  private userName : string = '';
   
-
   constructor(private http: HttpClient, private router: Router) {}
 
   // $ Authentication of User using credentials
@@ -31,18 +29,15 @@ export class AuthService {
   }
 
   // $ Set user and authorizations for that user
+  // userName set for admin/super users after refresh
   tokenPermissions(token: string, userName?: string) {
-    // ! Save token to local storage
+    // Save token to local storage
     localStorage.setItem('token', token);
-
-    // ! Destructure the token
+    // Destructure the token
     const helper = jwtDecode(token);
-
+    // Get access to object keys
     const userString = JSON.stringify(helper);
-
     let userObject = JSON.parse(userString);
-
-    console.log('token decoded: ', userObject.userRole);
 
     if(!userName) {
       userObject = {
@@ -55,16 +50,12 @@ export class AuthService {
         'userName': userName
       }
     }
-
-    console.log("USEROBJECT after decode: ", userObject);
-    // ! Set tmdb API KEY through service
-    // ! Set user
+    //  Set user
     this.user = userObject;
     this.userSubject$.next(this.user);
-    console.log("User SET: ", this.user);
     //! Start refresh token timer
 
-    // ! Set auth state
+    // Set auth state
     this.authState = true;
     this.authStateSubject$.next(this.authState);
 
@@ -72,7 +63,6 @@ export class AuthService {
   }
 
   // $ Register new user
-  // ! REGISTER
   registerUser(fullForm: {}) {
     return this.http.post(
       'http://localhost:443/api/register/createNewAccount',

@@ -19,12 +19,18 @@ export class AuthService {
 
   // $ Authentication of User using credentials
   // ! LOGIN
-  loginAttempt() {
-    return this.http.post('http://localhost:443/api/login', {
+  loginAttempt({userEmail, password}: any) {
+    return this.http.post('http://localhost:443/auth/signin', {
+    // return this.http.post('http://localhost:443/api/login', {
       // userEmail: 'group.callbackcats@gmail.com',
       // password: '$2a$10$d8QWXUh.xZKdluBDAriCpeW2VrXm1JCuJZqgdTkTm/l0aBwmFiz2q',
-      userEmail: 'kru24528@gmail.com',
-      password: '$2a$10$ZXYbVii8zmrPxlS3geAA9ubA6ftkHV1Vqy2MRZ/JZiZtUhOaonIq.',
+      // userEmail: 'kru24528@gmail.com',
+      // email: 'kru24528@gmail.com',
+      // password: '$2a$10$ZXYbVii8zmrPxlS3geAA9ubA6ftkHV1Vqy2MRZ/JZiZtUhOaonIq.',
+      // email: "hurtad.daniel4774@gmail.com",
+      // password: "a"
+      email: userEmail,
+      password: password
     });
   }
 
@@ -39,17 +45,20 @@ export class AuthService {
     const userString = JSON.stringify(helper);
     let userObject = JSON.parse(userString);
 
-    if(!userName) {
-      userObject = {
-        ...userObject,
-        'userName': userObject.userRole
-      } 
-    } else {
-      userObject = {
-        ...userObject,
-        'userName': userName
-      }
-    }
+    console.log("USER Object--Service", userObject);
+
+    // if(!userName) {
+    //   userObject = {
+    //     ...userObject,
+    //     'userName': userObject.userole
+    //   } 
+    // } else {
+    //   userObject = {
+    //     ...userObject,
+    //     'userName': userName
+    //   }
+    // }
+
     //  Set user
     this.user = userObject;
     this.userSubject$.next(this.user);
@@ -86,6 +95,8 @@ export class AuthService {
     this.user = userObjectupdate;
 
     this.userSubject$.next(this.user);
+
+    this.router.navigate(['/MovieList']);
   }
 
   // $ Logout and set not auth

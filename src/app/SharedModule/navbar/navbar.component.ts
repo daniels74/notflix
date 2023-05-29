@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/CoreModule/services/auth.service';
 @Component({
@@ -13,14 +13,12 @@ export class NavbarComponent implements OnInit {
 
   userName!: any;
 
-  authState$!: Observable<boolean>;
-
   isAuth: boolean = false;
 
   ngOnInit() {
     // Set usernme for nav btn
     this.authService.user$.subscribe((user) => {
-      this.userName = user.userName;
+      this.userName = user.username;
     });
 
     // Set auth State

@@ -49,7 +49,7 @@ export class LoginComponent {
   }
 
   onSubmit(formData: any) {
-    // console.log('FORMMM: ', this.form.value);
+    console.log('FORMMM: ', this.form.value);
     // this.http
     //   .post('http://localhost:443/api/login', this.form.value)
     //   .subscribe({
@@ -59,30 +59,22 @@ export class LoginComponent {
     console.log('FORMMM: ', this.form.value.userEmail);
     // ? this.authService.loginUser().subscribe();
 
-    const res = this.authService.loginAttempt();
+    //console.log("LOGIN res: ", this.authService.loginAttempt());
+
+    const res = this.authService.loginAttempt(this.form.value);
 
     res.subscribe((response) => {
-    // age: 33
-    //bearerToken: string
-    //gender: "Male"
-    // name: "CallbackCats"
-    // phone: 1234567890
-    // userEmail: "group.callbackcats@gmail.com"
-    // userName: "CallbackCats"userRole
   
     const userString = JSON.stringify(response); // ? turn into string
     const userObject = JSON.parse(userString); // ? turn into object for access to names
       
-    const userToken = userObject.bearerToken;
-
-    // // ! Set userName
-    // this.authService.userNamee(userObject.userName);
-    // console.log('userName: ', userObject.userName);
+    console.log("UserOb: ", userObject);
+    const userToken = userObject.accessToken;
 
     // ! Store token in local storage
     // ! Get user authorizations from token
-    this.authService.tokenPermissions(userToken, userObject.userName);
-    console.log("User Token: ", userToken);
+    this.authService.tokenPermissions(userToken);
+   
     this.authService.user$.subscribe((user) => { console.log("UUUSSER: ", user)});
     });
   }

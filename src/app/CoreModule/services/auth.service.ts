@@ -74,8 +74,9 @@ export class AuthService {
   // $ Register new user
   registerUser(fullForm: {}) {
     return this.http.post(
-      'http://localhost:443/api/register/createNewAccount',
-      { fullForm }
+      // 'http://localhost:443/api/register/createNewAccount',
+      'http://localhost:443/auth/signup',
+      fullForm
     );
   }
 

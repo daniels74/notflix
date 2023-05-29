@@ -1,7 +1,7 @@
 <div class="page-container">
     <mat-horizontal-stepper
       [className]="largeForm ? 'large-box' : 'form-container'"
-      [linear]="isLinear"
+      [linear]="true"
       #stepper
     >
       <mat-step [stepControl]="firstFormGroup" *ngIf="!authState">

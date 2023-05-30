@@ -13,7 +13,7 @@ export class MovieDetailsGuard implements CanActivate {
    
     const userRole = this.authService.userRole;
     // this.authService.user$.subscribe((user: any) => {
-        if (userRole === 'admin') {
+        if (userRole === 'ADMIN' || userRole === 'SUPERUSER') {
           console.log("ITEM GAURD!: ", userRole);
             return true;
 

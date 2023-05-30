@@ -13,7 +13,6 @@ import { AuthService } from 'src/app/CoreModule/services/auth.service';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  
   authState = this.authService.authenticationState;
 
   firstFormGroup!: FormGroup;
@@ -83,20 +82,31 @@ export class RegisterComponent {
     // Update user role
     if (this.authState === true) {
       const currentRole = this.authService.userRole;
-      if (this.selectedIndex === 2) {
-        if (currentRole === 'admin') {
-          console.log('User has max role !');
-        } else {
-          this.authService.updateUserRole_Manualy('admin');
-//          this.authService.updateUserInfo();
-        }
-      } else if (this.selectedIndex === 1) {
-        console.log('No role effect');
+
+      if (currentRole !== this.selectedPlan) {
+        const res = this.authService.updateUserInfo(this.selectedPlan);
+
+        let userUpdateRes;
+        res.subscribe((res) => {
+          console.log("res ", res);
+          userUpdateRes = res;
+          if (res) {
+            this.authService.refreshToken();
+
+            const resString = JSON.stringify(res);
+            const resObject = JSON.parse(resString);
+
+            this.authService.tokenPermissions(resObject.accessToken);
+          }
+        });
+
+      } else {
+        console.log('User has same role !');
       }
     }
+
     // Submit full form
     else {
-
       let fullForm = {
         username: this.secondFormGroup.value.username,
         password: this.firstFormGroup.value.password,
@@ -108,17 +118,15 @@ export class RegisterComponent {
       const userRes = this.authService.registerUser(fullForm);
 
       userRes.subscribe((response) => {
-  
         // Gain access to key names
-        const userString = JSON.stringify(response); 
+        const userString = JSON.stringify(response);
         const userObject = JSON.parse(userString);
-          
+
         const userToken = userObject.accessToken;
-    
+
         // Store token  & Get authorizations from token
         this.authService.tokenPermissions(userToken);
-       
-        });
+      });
     }
   }
 }

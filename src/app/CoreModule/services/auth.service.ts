@@ -3,10 +3,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import { BehaviorSubject } from 'rxjs';
-
+import { Observable } from 'rxjs/internal/Observable';
 @Injectable()
 export class AuthService {
-  
   private user!: {};
   private userSubject$ = new BehaviorSubject<any>(this.user);
   user$ = this.userSubject$.asObservable();
@@ -14,14 +13,14 @@ export class AuthService {
   private authState: boolean = false;
   private authStateSubject$ = new BehaviorSubject(this.authState);
   authState$ = this.authStateSubject$.asObservable();
-  
+
   constructor(private http: HttpClient, private router: Router) {}
 
   // $ Authentication of User using credentials
   // ! LOGIN
-  loginAttempt({userEmail, password}: any) {
+  loginAttempt({ userEmail, password }: any) {
     return this.http.post('http://localhost:443/auth/signin', {
-    // return this.http.post('http://localhost:443/api/login', {
+      // return this.http.post('http://localhost:443/api/login', {
       // userEmail: 'group.callbackcats@gmail.com',
       // password: '$2a$10$d8QWXUh.xZKdluBDAriCpeW2VrXm1JCuJZqgdTkTm/l0aBwmFiz2q',
       // userEmail: 'kru24528@gmail.com',
@@ -30,13 +29,13 @@ export class AuthService {
       // email: "hurtad.daniel4774@gmail.com",
       // password: "a"
       email: userEmail,
-      password: password
+      password: password,
     });
   }
 
   // $ Set user and authorizations for that user
   // userName set for admin/super users after refresh
-  tokenPermissions(token: string, userName?: string) {
+  tokenPermissions(token: string, userRole?: string) {
     // Save token to local storage
     localStorage.setItem('token', token);
     // Destructure the token
@@ -45,13 +44,13 @@ export class AuthService {
     const userString = JSON.stringify(helper);
     let userObject = JSON.parse(userString);
 
-    console.log("USER Object--Service", userObject);
+    console.log('USER Object--Service', userObject);
 
     // if(!userName) {
     //   userObject = {
     //     ...userObject,
     //     'userName': userObject.userole
-    //   } 
+    //   }
     // } else {
     //   userObject = {
     //     ...userObject,
@@ -60,7 +59,11 @@ export class AuthService {
     // }
 
     //  Set user
-    this.user = userObject;
+    this.user = {
+      ...userObject,
+      "userRole": userRole
+    }
+    
     this.userSubject$.next(this.user);
     //! Start refresh token timer
 
@@ -81,8 +84,21 @@ export class AuthService {
   }
 
   // $ Set user and new authorizations for that user
-  updateUserInfo() {
-    return this.http.patch('http://localhost:443/auth/userupdate', {});
+  updateUserInfo(plan: string) {
+    const userObj = this.userSubject$.value;
+
+    return this.http.patch('http://localhost:443/auth/userupdate', {
+      "email": userObj.email,
+      "role": plan,
+    });
+  }
+
+  refreshToken(){
+    const userObj = this.userSubject$.value;
+
+    return this.http.post('http://localhost:443/auth/refresh-token', {
+      "email" : userObj.email
+    });
   }
 
   // $ Update current role of current user.
@@ -90,8 +106,8 @@ export class AuthService {
   updateUserRole_Manualy(newRole: string) {
     const userObjectupdate = {
       ...this.user,
-      'userRole': newRole 
-    }
+      userRole: newRole,
+    };
 
     this.user = userObjectupdate;
 

@@ -3,27 +3,41 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/CoreModule/services/auth.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
+  constructor(private authService: AuthService) {}
 
-  constructor(private authService : AuthService) {}
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    const isAuth = this.authService.authenticationState;
+    const urlValid = request.url.startsWith('http://localhost:443/auth/userupdate');
+    if (isAuth && urlValid) {
+      const token = this.authService.getJwtToken();
+      console.log("TOKEN: ", token);
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request);
   }
 
-  addAuthToken(request: HttpRequest<any>) {
-    const token = this.authService.getJwtToken();
+  // addAuthToken(request: HttpRequest<any>) {
+  //   const token = this.authService.getJwtToken();
 
-    return request.clone({
-        setHeaders: {
-          JWT: `${token}`
-        }
-    })
-  }
+  //   return request.clone({
+  //       setHeaders: {
+  //         JWT: `${token}`
+  //       }
+  //   })
+  // }
 }

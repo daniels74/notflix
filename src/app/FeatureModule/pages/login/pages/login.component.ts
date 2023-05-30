@@ -70,10 +70,11 @@ export class LoginComponent {
       
     console.log("UserOb: ", userObject);
     const userToken = userObject.accessToken;
+    const userRole = userObject.role;
 
     // ! Store token in local storage
     // ! Get user authorizations from token
-    this.authService.tokenPermissions(userToken);
+    this.authService.tokenPermissions(userToken, userRole);
    
     this.authService.user$.subscribe((user) => { console.log("UUUSSER: ", user)});
     });

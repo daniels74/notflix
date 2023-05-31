@@ -6,7 +6,7 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { BaseUrl, movieDetails_BaseUrl } from '../../RootModule/app.module';
+import { BaseUrl } from '../../RootModule/app.module';
 import { AuthService } from 'src/app/CoreModule/services/auth.service';
 
 @Injectable({

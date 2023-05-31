@@ -36,7 +36,12 @@ export class AuthService {
       userRole: userRole,
     };
     this.userSubject$.next(this.user);
-    //! Start refresh token timer
+    
+    // Start refresh token timer // 1 hour
+    const timer = 60000 * 60;
+    setTimeout(() => {
+      localStorage.removeItem('token');
+    }, timer);
 
     // Set auth state
     this.authState = true;

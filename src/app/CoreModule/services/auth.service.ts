@@ -99,6 +99,11 @@ export class AuthService {
     return userObject.userRole;
   }
 
+  get apiKey(){
+    const userObject: Fulluser = this.userSubject$.value;
+    return userObject.tmdb_key;
+  }
+
   // Get current auth state
   get authenticationState() {
     return this.authStateSubject$.value;

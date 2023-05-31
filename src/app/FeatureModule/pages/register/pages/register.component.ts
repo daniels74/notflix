@@ -13,9 +13,9 @@ import { Subscription } from 'rxjs';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit, OnDestroy{
+export class RegisterComponent implements OnInit, OnDestroy {
   authState = this.authService.authenticationState;
-  
+
   regSub!: Subscription;
 
   firstFormGroup!: FormGroup;
@@ -95,13 +95,15 @@ export class RegisterComponent implements OnInit, OnDestroy{
       if (currentRole !== this.selectedPlan) {
         const res = this.authService.updateUserInfo(this.selectedPlan);
 
-        this.regSub = res.subscribe((res:any) => {
-        
+        this.regSub = res.subscribe((res: any) => {
           if (res) {
             const resString = JSON.stringify(res);
             const resObject = JSON.parse(resString);
 
-            this.authService.tokenPermissions(resObject.accessToken);
+            this.authService.tokenPermissions(
+              resObject.accessToken,
+              resObject.role
+            );
           }
         });
       } else {
@@ -121,7 +123,7 @@ export class RegisterComponent implements OnInit, OnDestroy{
 
       const userRes = this.authService.registerUser(fullForm);
 
-      this.regSub = userRes.subscribe((response : any) => {
+      this.regSub = userRes.subscribe((response: any) => {
         // Gain access to key names
         const userStr = JSON.stringify(response);
         const userObj = JSON.parse(userStr);

@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { BaseUrl } from '../../RootModule/app.module';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, take } from 'rxjs';
 import { Movie } from '../interfaces/movie';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class MovieService {
@@ -12,12 +13,15 @@ export class MovieService {
 
   constructor(
     private http: HttpClient,
-    @Inject(BaseUrl) private baseUrl: string
+    @Inject(BaseUrl) private baseUrl: string,
+    private authService: AuthService
   ) {}
 
   // $ Obtain a list of movies and set that list in this service
   setMovieList() {
-    return this.http.get(this.baseUrl).pipe(
+     const api_key = this.authService.apiKey;
+  
+    return this.http.get([this.baseUrl, 'discover/movie', api_key].join('')).pipe(
       map((MovieRes: any) => {
         const movieData = MovieRes.results;
 

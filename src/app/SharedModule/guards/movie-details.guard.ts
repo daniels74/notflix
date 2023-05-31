@@ -17,7 +17,7 @@ export class MovieDetailsGuard implements CanActivate {
     const userRole = this.authService.userRole;
 
     if (userRole === 'ADMIN' || userRole === 'SUPERUSER') {
-      console.log('ITEM GAURD!: ', userRole);
+      
       return true;
     } else {
       console.log('Authorization Denied: ', userRole);

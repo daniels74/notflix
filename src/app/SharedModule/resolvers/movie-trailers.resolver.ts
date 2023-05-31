@@ -1,30 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import {
-  Router, Resolve,
+  Resolve,
   RouterStateSnapshot,
-  ActivatedRouteSnapshot
+  ActivatedRouteSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { movieDetails_BaseUrl } from '../../RootModule/app.module';
+import { BaseUrl, movieDetails_BaseUrl } from '../../RootModule/app.module';
+import { AuthService } from 'src/app/CoreModule/services/auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MovieTrailersResolver implements Resolve<boolean> {
-  
-  constructor( 
+  constructor(
+    private authService: AuthService,
     private http: HttpClient,
-    @Inject(movieDetails_BaseUrl) private movieDetails_BaseUrl: string,) {}
+    @Inject(BaseUrl) private baseUrl: string
+  ) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<any> {
     let id = route.params['id'];
 
-    const end =
-      '/videos?api_key=2f837be3c800489e1e3094b7fc6a3688&language=en-US';
+    const api_key = this.authService.apiKey;
 
-    const combined_Url = this.movieDetails_BaseUrl + id + end;
+    const combined_Url =
+      [this.baseUrl, 'movie/', id].join('') + '/videos' + api_key;
 
     return this.http.get(combined_Url);
   }

@@ -18,9 +18,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { TokenInterceptor } from '../CoreModule/interceptors/token.interceptor';
 
 export const BaseUrl = new InjectionToken<string>('');
-export const moviesConfigUrl = new InjectionToken<string>('');
-export const movieDetails_BaseUrl = new InjectionToken<string>('');
-export const movieDetails_KeyUrl = new InjectionToken<string>('');
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
@@ -39,21 +36,7 @@ export const movieDetails_KeyUrl = new InjectionToken<string>('');
     { provide: AuthService, useClass: AuthService },
     {
       provide: BaseUrl,
-      useValue:
-        'https://api.themoviedb.org/3/discover/movie?api_key=2f837be3c800489e1e3094b7fc6a3688',
-    },
-    {
-      provide: moviesConfigUrl,
-      useValue:
-        'https://api.themoviedb.org/3/configuration?api_key=2f837be3c800489e1e3094b7fc6a3688',
-    },
-    {
-      provide: movieDetails_BaseUrl,
-      useValue: 'https://api.themoviedb.org/3/movie/',
-    },
-    {
-      provide: movieDetails_KeyUrl,
-      useValue: '?api_key=2f837be3c800489e1e3094b7fc6a3688&language=en-US',
+      useValue: 'https://api.themoviedb.org/3/',
     },
   ],
   bootstrap: [AppComponent],

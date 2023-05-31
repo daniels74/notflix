@@ -7,7 +7,6 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/CoreModule/services/auth.service';
-
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
@@ -17,10 +16,12 @@ export class TokenInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const isAuth = this.authService.authenticationState;
-    const urlValid = request.url.startsWith('http://localhost:443/auth/userupdate');
+    const urlValid = request.url.startsWith(
+      'http://localhost:443/auth/userupdate'
+    );
     if (isAuth && urlValid) {
-      const token = this.authService.getJwtToken();
-      console.log("TOKEN: ", token);
+      const token = localStorage.getItem('token');
+
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
@@ -30,14 +31,4 @@ export class TokenInterceptor implements HttpInterceptor {
 
     return next.handle(request);
   }
-
-  // addAuthToken(request: HttpRequest<any>) {
-  //   const token = this.authService.getJwtToken();
-
-  //   return request.clone({
-  //       setHeaders: {
-  //         JWT: `${token}`
-  //       }
-  //   })
-  // }
 }

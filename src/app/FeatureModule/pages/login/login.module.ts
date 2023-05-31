@@ -11,6 +11,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 // $ Components
 import { LoginComponent } from './pages/login.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 const routes: Routes = [{ path: '', component: LoginComponent }];
 
@@ -28,6 +29,7 @@ const routes: Routes = [{ path: '', component: LoginComponent }];
     MatInputModule,
     MatButtonModule,
     MatListModule,
+    NgxSpinnerModule,
     RouterModule.forChild(routes)
   ],
   exports: [RouterModule]

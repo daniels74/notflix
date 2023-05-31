@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-//!import { RegisterRoutingModule } from './register-routing.module';
 import { MatStepperModule } from '@angular/material/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,7 +19,6 @@ const routes: Routes = [{ path: '', component: RegisterComponent }];
   ],
   imports: [
     CommonModule,
-    // RegisterRoutingModule,
     MatStepperModule,
     FormsModule,
     ReactiveFormsModule,

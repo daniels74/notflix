@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -6,14 +6,17 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from 'src/app/CoreModule/services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit, OnDestroy{
   authState = this.authService.authenticationState;
+  
+  regSub!: Subscription;
 
   firstFormGroup!: FormGroup;
 
@@ -63,6 +66,12 @@ export class RegisterComponent {
     });
   }
 
+  ngOnDestroy() {
+    if (this.regSub) {
+      this.regSub.unsubscribe();
+    }
+  }
+
   expandForm(decide: boolean) {
     this.largeForm = decide;
   }
@@ -86,20 +95,15 @@ export class RegisterComponent {
       if (currentRole !== this.selectedPlan) {
         const res = this.authService.updateUserInfo(this.selectedPlan);
 
-        let userUpdateRes;
-        res.subscribe((res) => {
-          console.log("res ", res);
-          userUpdateRes = res;
+        this.regSub = res.subscribe((res:any) => {
+        
           if (res) {
-            this.authService.refreshToken();
-
             const resString = JSON.stringify(res);
             const resObject = JSON.parse(resString);
 
             this.authService.tokenPermissions(resObject.accessToken);
           }
         });
-
       } else {
         console.log('User has same role !');
       }
@@ -107,7 +111,7 @@ export class RegisterComponent {
 
     // Submit full form
     else {
-      let fullForm = {
+      const fullForm = {
         username: this.secondFormGroup.value.username,
         password: this.firstFormGroup.value.password,
         email: this.firstFormGroup.value.email,
@@ -117,15 +121,15 @@ export class RegisterComponent {
 
       const userRes = this.authService.registerUser(fullForm);
 
-      userRes.subscribe((response) => {
+      this.regSub = userRes.subscribe((response : any) => {
         // Gain access to key names
-        const userString = JSON.stringify(response);
-        const userObject = JSON.parse(userString);
+        const userStr = JSON.stringify(response);
+        const userObj = JSON.parse(userStr);
 
-        const userToken = userObject.accessToken;
+        const userToken = userObj.accessToken;
 
         // Store token  & Get authorizations from token
-        this.authService.tokenPermissions(userToken);
+        this.authService.tokenPermissions(userToken, this.selectedPlan);
       });
     }
   }

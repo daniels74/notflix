@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { MovieService } from 'src/app/CoreModule/services/movie.service';
 
 @Component({
@@ -8,30 +8,35 @@ import { MovieService } from 'src/app/CoreModule/services/movie.service';
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.scss'],
 })
-export class MovieListComponent implements OnInit {
-  movies$!: Observable<any[]>;
+export class MovieListComponent implements OnInit, OnDestroy {
   baseImgUrl!: any;
+  moviesList!: any[];
+  setListSub!: Subscription;
+  movieListSub!: Subscription;
 
   constructor(
     public movieListService: MovieService,
     private route: ActivatedRoute
   ) {}
   ngOnInit() {
-
-    // console.log("ALL USERS: ", this.movieListService.allusers());
-    // const allUsers = this.movieListService.allusers();
-
-    // allUsers.subscribe((users: any)=> console.log(users));
-
+    // Get data from resolver
     const dataRes = this.route.snapshot.data['urls'];
 
     const imgSettings = dataRes.images;
 
     this.baseImgUrl = imgSettings.base_url + imgSettings.backdrop_sizes[2];
 
-    this.movieListService.getMovieList().subscribe();
+    this.setListSub = this.movieListService.setMovieList().subscribe();
 
-    this.movies$ = this.movieListService.movies$;
+    this.movieListSub = this.movieListService.movies$.subscribe(
+      (movies: any) => {
+        this.moviesList = movies;
+      }
+    );
+  }
 
+  ngOnDestroy() {
+    this.setListSub.unsubscribe();
+    this.movieListSub.unsubscribe();
   }
 }

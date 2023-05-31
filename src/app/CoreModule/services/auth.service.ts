@@ -2,11 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
-import { BehaviorSubject } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { BehaviorSubject, take } from 'rxjs';
+import { User } from '../interfaces/user';
+import { Fulluser } from '../interfaces/fulluser';
 @Injectable()
 export class AuthService {
-  private user!: {};
+  private user!: Fulluser;
   private userSubject$ = new BehaviorSubject<any>(this.user);
   user$ = this.userSubject$.asObservable();
 
@@ -16,54 +17,24 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  // $ Authentication of User using credentials
-  // ! LOGIN
+  // LOGIN: Authentication of User using credentials
   loginAttempt({ userEmail, password }: any) {
     return this.http.post('http://localhost:443/auth/signin', {
-      // return this.http.post('http://localhost:443/api/login', {
-      // userEmail: 'group.callbackcats@gmail.com',
-      // password: '$2a$10$d8QWXUh.xZKdluBDAriCpeW2VrXm1JCuJZqgdTkTm/l0aBwmFiz2q',
-      // userEmail: 'kru24528@gmail.com',
-      // email: 'kru24528@gmail.com',
-      // password: '$2a$10$ZXYbVii8zmrPxlS3geAA9ubA6ftkHV1Vqy2MRZ/JZiZtUhOaonIq.',
-      // email: "hurtad.daniel4774@gmail.com",
-      // password: "a"
       email: userEmail,
       password: password,
     });
   }
 
-  // $ Set user and authorizations for that user
-  // userName set for admin/super users after refresh
+  // Set user and authorizations for that user
   tokenPermissions(token: string, userRole?: string) {
-    // Save token to local storage
     localStorage.setItem('token', token);
-    // Destructure the token
-    const helper = jwtDecode(token);
-    // Get access to object keys
-    const userString = JSON.stringify(helper);
-    let userObject = JSON.parse(userString);
 
-    console.log('USER Object--Service', userObject);
+    const userObject: User = jwtDecode(token);
 
-    // if(!userName) {
-    //   userObject = {
-    //     ...userObject,
-    //     'userName': userObject.userole
-    //   }
-    // } else {
-    //   userObject = {
-    //     ...userObject,
-    //     'userName': userName
-    //   }
-    // }
-
-    //  Set user
     this.user = {
       ...userObject,
-      "userRole": userRole
-    }
-    
+      userRole: userRole,
+    };
     this.userSubject$.next(this.user);
     //! Start refresh token timer
 
@@ -74,49 +45,31 @@ export class AuthService {
     this.router.navigate(['/MovieList']);
   }
 
-  // $ Register new user
+  // Register new user
   registerUser(fullForm: {}) {
-    return this.http.post(
-      // 'http://localhost:443/api/register/createNewAccount',
-      'http://localhost:443/auth/signup',
-      fullForm
-    );
+    return this.http.post('http://localhost:443/auth/signup', fullForm);
   }
 
-  // $ Set user and new authorizations for that user
+  // Set user and new authorizations for that user
   updateUserInfo(plan: string) {
     const userObj = this.userSubject$.value;
 
     return this.http.patch('http://localhost:443/auth/userupdate', {
-      "email": userObj.email,
-      "role": plan,
+      email: userObj.email,
+      role: plan,
     });
   }
 
-  refreshToken(){
-    const userObj = this.userSubject$.value;
-
+  refreshToken(userObj: User) {
     return this.http.post('http://localhost:443/auth/refresh-token', {
-      "email" : userObj.email
+      id: userObj.id,
+      email: userObj.email,
+      username: userObj.username,
+      tmdb_key: userObj.tmdb_key,
     });
   }
 
-  // $ Update current role of current user.
-  // ? Used in regsiter component
-  updateUserRole_Manualy(newRole: string) {
-    const userObjectupdate = {
-      ...this.user,
-      userRole: newRole,
-    };
-
-    this.user = userObjectupdate;
-
-    this.userSubject$.next(this.user);
-
-    this.router.navigate(['/MovieList']);
-  }
-
-  // $ Logout and set not auth
+  // Logout and set not auth
   logout() {
     localStorage.removeItem('token');
 
@@ -126,26 +79,27 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  // $ Check if user is logged in
+  // Check if user is logged in
   liveSessionCheck() {
     const token = localStorage.getItem('token');
     if (token) {
-      this.tokenPermissions(token);
+      const userObject: User = jwtDecode(token);
+
+      const refresh$ = this.refreshToken(userObject);
+
+      refresh$.pipe(take(1)).subscribe((res: any) => {
+        this.tokenPermissions(res.accessToken, res.role);
+      });
     }
   }
 
-  // $ Get jwt token of current user
-  getJwtToken() {
-    return localStorage.getItem('token');
-  }
-
-  // ? used in Register.ts for condtions for updating roles
+  // used in Register.ts for condtions for updating roles
   get userRole() {
-    const userObject = this.userSubject$.value;
+    const userObject: Fulluser = this.userSubject$.value;
     return userObject.userRole;
   }
 
-  // $ Get current auth state
+  // Get current auth state
   get authenticationState() {
     return this.authStateSubject$.value;
   }

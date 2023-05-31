@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
@@ -6,32 +6,16 @@ import { NgxSpinnerService } from 'ngx-spinner';
   templateUrl: './movie-item.component.html',
   styleUrls: ['./movie-item.component.scss'],
 })
-export class MovieItemComponent implements OnInit {
-  @Input() movieImage!: string;
-
-  @Input() movieTitle!: string;
-
+export class MovieItemComponent {
   @Input() baseImgUrl!: string;
 
-  @Input() releaseDate!: string;
-
-  @Input() voteAverage!: string;
-
-  @Input() movieId!: string;
+  @Input() movieData!: any;
 
   loadingState = false;
 
-  constructor(
-    private router: Router,
-    public spinner: NgxSpinnerService
-  ) {}
-  ngOnInit() {
-    // this.data = JSON.parse(JSON.stringify(this.movieData));
-    // console.log("DATATAAA: " , this.data.title);
-  }
+  constructor(private router: Router, public spinner: NgxSpinnerService) {}
 
   showMore(id: string) {
-  
     this.spinner.show('primary');
 
     this.loadingState = true;

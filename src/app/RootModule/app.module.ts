@@ -6,24 +6,13 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-// Forms
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatListModule } from '@angular/material/list';
-import { MatFormFieldModule } from '@angular/material/form-field';
-
 // Components
 import { NavbarComponent } from '../SharedModule/navbar/navbar.component';
 import { AppComponent } from './app.component';
-
 // Resources
 import { MovieService } from '../CoreModule/services/movie.service';
 import { AuthService } from '../CoreModule/services/auth.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { YouTubePlayerModule } from '@angular/youtube-player';
 import { MyResolver } from '../SharedModule/resolvers/movie-details.resolver';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { TokenInterceptor } from '../CoreModule/interceptors/token.interceptor';
@@ -36,20 +25,10 @@ export const movieDetails_KeyUrl = new InjectionToken<string>('');
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
   imports: [
-    // ! Important
     BrowserModule,
     AppRoutingModule,
-    // UI
     BrowserAnimationsModule,
-    // MatStepperModule,
-    // FormsModule,
-    // ReactiveFormsModule,
-    // MatFormFieldModule,
-    // MatInputModule,
-    // MatButtonModule,
-    // MatListModule,
     HttpClientModule,
-    //YouTubePlayerModule,
     NgxSpinnerModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

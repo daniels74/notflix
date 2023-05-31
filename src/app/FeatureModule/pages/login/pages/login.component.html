@@ -1,16 +1,16 @@
 <div class="page-container">
-  <app-background></app-background>
+  <app-background *ngIf="!loadingState"></app-background>
 
-  <div class="login-background"></div>
+  <div class="login-background" *ngIf="!loadingState"></div>
 
-  <div class="login-container">
+  <div class="login-container" *ngIf="!loadingState">
     <h1 class="login-title">Sign In</h1>
 
     <form
       [formGroup]="form"
       action=""
       class="login-form"
-      (ngSubmit)="onSubmit(form.value)"
+      (ngSubmit)="onSubmit()"
     >
       <div class="text-inputs-container">
         <!-- <input type="text" class="text-input" /> -->
@@ -101,5 +101,13 @@
         <a class="learn-more" href="http://">Learn more.</a></span
       >
     </div>
+  </div>
+  <div class="spinner" *ngIf="loadingState">
+    <ngx-spinner
+      size="large"
+      template="<img src='../../../../../assets/Spin-0.9s-201px.svg'>"
+      [fullScreen]="true"
+      bdColor="rgba(36, 4, 4, 1)"
+    ></ngx-spinner>
   </div>
 </div>

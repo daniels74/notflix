@@ -10,6 +10,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { backgroundModule } from 'src/app/SharedModule/background/backgroundModule.module';
 import { MovieListGuard } from 'src/app/SharedModule/guards/movie-list.guard';
 
+// GUARD: Only allow authenticated users into this route
 const routes: Routes = [
   { path: '', canActivate: [MovieListGuard], component: MovieListComponent },
 ];

@@ -42,10 +42,12 @@
       <div class="producers-container">
         <div class="cards">
           <div *ngFor="let producer of producers" class="producer-card">
-            <img src="{{ baseImgUrl_Producers + producer.logo_path }}" alt="" />
-            <h6>
+            <div *ngIf="producer.logo_path" class="img-container">
+              <img src="{{ baseImgUrl_Producers + producer.logo_path }}" class="producer-image" alt="" />
+            </div>
+            <h3 class="producer-name">
               {{ producer.name }}
-            </h6>
+            </h3>
           </div>
         </div>
       </div>

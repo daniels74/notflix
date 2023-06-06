@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from 'src/app/CoreModule/services/auth.service';
-import { Subscription } from 'rxjs';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -15,8 +15,6 @@ import { Subscription } from 'rxjs';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   authState = this.authService.authenticationState;
-
-  regSub!: Subscription;
 
   firstFormGroup!: FormGroup;
 
@@ -66,11 +64,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    if (this.regSub) {
-      this.regSub.unsubscribe();
-    }
-  }
+  ngOnDestroy() {}
 
   expandForm(decide: boolean) {
     this.largeForm = decide;
@@ -93,16 +87,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
       const currentRole = this.authService.userRole;
 
       if (currentRole !== this.selectedPlan) {
-        const res = this.authService.updateUserInfo(this.selectedPlan);
-
-        this.regSub = res.subscribe((res: any) => {
+        this.authService.updateUserInfo(this.selectedPlan).pipe(take(1)).subscribe((res) => {
           if (res) {
-            const resString = JSON.stringify(res);
-            const resObject = JSON.parse(resString);
-
             this.authService.tokenPermissions(
-              resObject.accessToken,
-              resObject.role
+              res.accessToken,
+              res.role
             );
           }
         });
@@ -121,17 +110,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
         tmdb_key: this.secondFormGroup.value.tmdb_key,
       };
 
-      const userRes = this.authService.registerUser(fullForm);
-
-      this.regSub = userRes.subscribe((response: any) => {
-        // Gain access to key names
-        const userStr = JSON.stringify(response);
-        const userObj = JSON.parse(userStr);
-
-        const userToken = userObj.accessToken;
-
+      this.authService.registerUser(fullForm).pipe(take(1)).subscribe((res) => {
         // Store token  & Get authorizations from token
-        this.authService.tokenPermissions(userToken, this.selectedPlan);
+        this.authService.tokenPermissions(res.accessToken, res.role);
       });
     }
   }

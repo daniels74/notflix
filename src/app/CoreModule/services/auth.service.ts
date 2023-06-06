@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
-import { BehaviorSubject, take } from 'rxjs';
+import { BehaviorSubject, Observable, take } from 'rxjs';
 import { User } from '../interfaces/user';
 import { Fulluser } from '../interfaces/fulluser';
+import { Signinresponse } from '../interfaces/signinresponse';
 @Injectable()
 export class AuthService {
   private user!: Fulluser;
-  private userSubject$ = new BehaviorSubject<any>(this.user);
+  private userSubject$ = new BehaviorSubject(this.user);
   user$ = this.userSubject$.asObservable();
 
   private authState: boolean = false;
@@ -18,15 +19,15 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   // LOGIN: Authentication of User using credentials
-  loginAttempt({ userEmail, password }: any) {
-    return this.http.post('http://localhost:443/auth/signin', {
+  loginAttempt({ userEmail, password }: any): Observable<Signinresponse> {
+    return this.http.post<Signinresponse>('http://localhost:443/auth/signin', {
       email: userEmail,
       password: password,
     });
   }
 
   // Set user and authorizations for that user
-  tokenPermissions(token: string, userRole?: string) {
+  tokenPermissions(token: string, userRole?: string): void {
     localStorage.setItem('token', token);
 
     const userObject: User = jwtDecode(token);
@@ -36,7 +37,7 @@ export class AuthService {
       userRole: userRole,
     };
     this.userSubject$.next(this.user);
-    
+
     // Start refresh token timer // 1 hour
     const timer = 60000 * 60;
     setTimeout(() => {
@@ -51,31 +52,40 @@ export class AuthService {
   }
 
   // Register new user
-  registerUser(fullForm: {}) {
-    return this.http.post('http://localhost:443/auth/signup', fullForm);
+  registerUser(fullForm: {}): Observable<Signinresponse> {
+    return this.http.post<Signinresponse>(
+      'http://localhost:443/auth/signup',
+      fullForm
+    );
   }
 
   // Set user and new authorizations for that user
-  updateUserInfo(plan: string) {
+  updateUserInfo(plan: string): Observable<Signinresponse> {
     const userObj = this.userSubject$.value;
 
-    return this.http.patch('http://localhost:443/auth/userupdate', {
-      email: userObj.email,
-      role: plan,
-    });
+    return this.http.patch<Signinresponse>(
+      'http://localhost:443/auth/userupdate',
+      {
+        email: userObj.email,
+        role: plan,
+      }
+    );
   }
 
-  refreshToken(userObj: User) {
-    return this.http.post('http://localhost:443/auth/refresh-token', {
-      id: userObj.id,
-      email: userObj.email,
-      username: userObj.username,
-      tmdb_key: userObj.tmdb_key,
-    });
+  refreshToken(userObj: User): Observable<Signinresponse> {
+    return this.http.post<Signinresponse>(
+      'http://localhost:443/auth/refresh-token',
+      {
+        id: userObj.id,
+        email: userObj.email,
+        username: userObj.username,
+        tmdb_key: userObj.tmdb_key,
+      }
+    );
   }
 
   // Logout and set not auth
-  logout() {
+  logout(): void {
     localStorage.removeItem('token');
 
     this.authState = false;
@@ -85,32 +95,34 @@ export class AuthService {
   }
 
   // Check if user is logged in
-  liveSessionCheck() {
+  liveSessionCheck(): void {
     const token = localStorage.getItem('token');
     if (token) {
       const userObject: User = jwtDecode(token);
 
-      const refresh$ = this.refreshToken(userObject);
-
-      refresh$.pipe(take(1)).subscribe((res: any) => {
-        this.tokenPermissions(res.accessToken, res.role);
-      });
+      this.refreshToken(userObject)
+        .pipe(take(1))
+        .subscribe((res) => {
+          this.tokenPermissions(res.accessToken, res.role);
+        });
+    } else {
+      return;
     }
   }
 
   // used in Register.ts for condtions for updating roles
-  get userRole() {
+  get userRole() : string | undefined {
     const userObject: Fulluser = this.userSubject$.value;
     return userObject.userRole;
   }
 
-  get apiKey(){
+  get apiKey() : string {
     const userObject: Fulluser = this.userSubject$.value;
     return userObject.tmdb_key;
   }
 
   // Get current auth state
-  get authenticationState() {
+  get authenticationState() : boolean {
     return this.authStateSubject$.value;
   }
 }

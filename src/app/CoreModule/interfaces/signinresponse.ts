@@ -1,4 +1,4 @@
 export interface Signinresponse {
-    accesstoken: string;
-    role?: string;
+    "accessToken" : string;
+    "role": string;
 }

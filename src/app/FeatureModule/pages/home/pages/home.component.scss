@@ -1,14 +1,15 @@
 .home-container {
-    position: absolute;
+    position: relative;
     background-color: black;
     color: whitesmoke;
-    min-height: 93vh;
-    width: 100vw;
-  
+    height: 92vh;
+    width: 100%;
+    overflow-y: scroll;
+    scrollbar-color: red; 
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    // align-items: center;
+    // justify-content: ;
   }
   
   //------------------------------------------------------------------------------------
@@ -51,7 +52,7 @@
   }
   
   .email-container {
-    background-color: rebeccapurple;
+    // background-color: rebeccapurple;
     height: 10%;
     width: 50%;
   
@@ -62,6 +63,8 @@
   .email-input {
     height: auto;
     width: 70%;
+    border-top-left-radius: .5rem;
+    border-bottom-left-radius: .5rem;
   }
   
   .email-button {
@@ -72,6 +75,8 @@
     color: white;
   
     border-width: 0;
+    border-top-right-radius: .5rem;
+    border-bottom-right-radius: .5rem;
   }
   
   //------------------------------------------------------------------------------------
@@ -79,6 +84,7 @@
   //------------------------------------------------------------------------------------
   
   .rows-container {
+    position: relative;
     height: auto;
     width: 100%;
     display: flex;
